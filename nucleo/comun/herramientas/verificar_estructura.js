@@ -69,7 +69,7 @@ function main() {
   const avisos = [];
 
   // Reconoce dos sintaxis: la vieja ("**Tabla N**" en línea propia, compatibilidad
-  // hacia atrás) y la nueva (caption nativo de Pandoc, ver comun/apa/tablas-figuras-apa.md).
+  // hacia atrás) y la nueva (caption nativo de Pandoc, ver nucleo/comun/apa/tablas-figuras-apa.md).
   const DEF_TABLA = /^\**\s*Tabla\s+(\d+)\s*\**\s*$|^Table:\s*\**\s*Tabla\s+(\d+)\./gim;
   const DEF_FIGURA = /^\**\s*Figura\s+(\d+)\s*\**\s*$|!\[\s*\**\s*Figura\s+(\d+)\./gim;
   const DEF_ANEXO = /^#*\s*\**\s*Anexo\s+(?:N\.?°?\s*)?(\d+)/gim;

@@ -12,7 +12,7 @@
  *   node descriptivos.js datos.csv --frecuencia RedesSociales --salida output/trabajo/calculo-tabla-1.md
  *
  * La salida es una tabla Markdown (formato del arnés: se le agrega número y
- * título según comun/apa/tablas-figuras-apa.md al pegarla en informe.md).
+ * título según nucleo/comun/apa/tablas-figuras-apa.md al pegarla en informe.md).
  */
 'use strict';
 const { readCsvObjects } = require('./lib-csv');

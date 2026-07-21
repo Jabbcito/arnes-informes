@@ -16,10 +16,10 @@ Título y variables ya confirmados.
    - 1 fuente (mínimo) por cada **dimensión** declarada de cada variable.
    - 3 a 5 fuentes de **teorías formales** relacionadas (nombre de la teoría + autor que la formuló).
    - El resto como **antecedentes empíricos** (estudios que midieron estas variables o similares).
-2. Formula búsquedas concretas por variable/dimensión/teoría y consulta exclusivamente las bases de `../../fuentes-permitidas.md` (o un enlace específico que el alumno pegue).
+2. Formula búsquedas concretas por variable/dimensión/teoría y consulta exclusivamente las bases de `../../../fuentes-permitidas.md` (o un enlace específico que el alumno pegue).
 3. Reúne **mínimo 15 fuentes candidatas** con año de publicación ≤5 años respecto a la fecha real en que se ejecuta el arnés (no una fecha fija — usa la fecha del sistema).
 4. Si tras una búsqueda razonable no se llega a 15 fuentes en esa ventana de 5 años, **amplía a 10 años** y dilo explícitamente en una sección nueva "Ampliación de vigencia" en `fuentes/investigacion.md` (qué categoría no tenía suficientes fuentes recientes y por qué se amplió).
-5. Si aun ampliando a 10 años no se llega a 15, **detente y pregunta al alumno** cómo seguir: bajar el mínimo, agregar él mismo fuentes en `../../fuentes-permitidas.md`, o aceptar menos fuentes con esa limitación documentada. Nunca completes la cuota en silencio ni sigas adelante con menos de lo pedido sin decirlo.
+5. Si aun ampliando a 10 años no se llega a 15, **detente y pregunta al alumno** cómo seguir: bajar el mínimo, agregar él mismo fuentes en `../../../fuentes-permitidas.md`, o aceptar menos fuentes con esa limitación documentada. Nunca completes la cuota en silencio ni sigas adelante con menos de lo pedido sin decirlo.
 
 ### Fase B — Descarga y extracción real (nunca te quedes con el resumen del buscador)
 

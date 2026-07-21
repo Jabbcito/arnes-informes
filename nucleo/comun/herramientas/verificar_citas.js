@@ -206,7 +206,7 @@ function main() {
     '## Fuera del alcance del script (revisión humana)', '',
     '- ¿Cada paráfrasis refleja fielmente lo que dice la fuente?',
     '- ¿El año citado corresponde a esa afirmación concreta?',
-    '- Formato fino APA de cada entrada (cursivas, DOI): ver comun/apa/referencias.md.'
+    '- Formato fino APA de cada entrada (cursivas, DOI): ver nucleo/comun/apa/referencias.md.'
   );
 
   const reporte = out.join('\n');

@@ -69,7 +69,7 @@ Esta es la plantilla más completa del sistema. `../informe/estructura-informe-m
 
 ---
 
-## Reglas específicas de tesis (además de las de `../../../AGENTS.md`)
+## Reglas específicas de tesis (además de las de `../../AGENTS.md`)
 
 1. La declaratoria de autenticidad del asesor y la declaratoria de originalidad de los autores nunca se redactan como si ya estuvieran firmadas ni se inventa un porcentaje de similitud. Se deja el espacio marcado como pendiente de firma real.
 2. El índice de tablas y el índice de figuras se generan solo a partir de tablas/figuras que existen de verdad en el documento — no se listan de forma genérica.

@@ -158,7 +158,7 @@ function construirHtml({ titulo, notaEscala, secciones }, opts) {
 
 ${cuerpo}
 
-<footer>Generado el ${fecha} por comun/herramientas/generar_instrumento_html.js — arnés de creación de informes académicos.</footer>
+<footer>Generado el ${fecha} por nucleo/comun/herramientas/generar_instrumento_html.js — arnés de creación de informes académicos.</footer>
 </body>
 </html>
 `;
