@@ -22,7 +22,7 @@ Antes de dar un título por confirmado, se ejecuta esta búsqueda y se registra 
    - **Google Scholar** y Google normal.
    - El **repositorio de la propia universidad** del alumno.
 2. Buscar también la combinación de variables + población (sin el formato exacto del título), porque un título "casi igual" con palabras cambiadas sigue siendo un problema.
-3. Registrar el resultado en `trabajo/verificacion-titulo.md`: fecha de búsqueda, dónde se buscó, qué títulos similares se encontraron (con enlace), y el veredicto: `DISPONIBLE`, `SIMILAR ENCONTRADO (ajustar)` o `OCUPADO (cambiar)`.
+3. Registrar el resultado en `output/trabajo/verificacion-titulo.md`: fecha de búsqueda, dónde se buscó, qué títulos similares se encontraron (con enlace), y el veredicto: `DISPONIBLE`, `SIMILAR ENCONTRADO (ajustar)` o `OCUPADO (cambiar)`.
 4. Si hay títulos similares, diferenciarse cambiando alguno de estos ejes: población, lugar, periodo, enfoque o la segunda variable. No basta con cambiar sinónimos.
 5. El alumno confirma el veredicto abriendo él mismo los enlaces encontrados.
 

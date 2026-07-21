@@ -12,12 +12,12 @@ Instalar una sola vez: `winget install --id JohnMacFarlane.Pandoc` (Windows) —
 
 ```bash
 cd mi-tesis
-pandoc trabajo/informe.md \
+pandoc output/trabajo/informe.md \
   --from markdown+raw_attribute \
   --reference-doc=plantillas/plantilla-apa.docx \
   --toc --toc-depth=3 \
   --resource-path=.:anexos/imagenes \
-  -o entregables/informe.docx
+  -o output/entregables/informe.docx
 ```
 
 - `--from markdown+raw_attribute` habilita los saltos de página reales (ver más abajo) — sin esta extensión, el marcador de salto de página se ignora.
@@ -28,7 +28,7 @@ pandoc trabajo/informe.md \
 
 ## Saltos de página reales (verificado)
 
-Word/APA exige que varias secciones preliminares empiecen en su propia página: Declaratoria de autenticidad del asesor, Declaratoria de originalidad de los autores, Dedicatoria, Agradecimiento, Resumen, Abstract (la guía APA real dice explícitamente "comience el resumen en una nueva página"). Para forzar el salto en la exportación, se inserta este bloque al final de cada una de esas secciones en `trabajo/informe.md`:
+Word/APA exige que varias secciones preliminares empiecen en su propia página: Declaratoria de autenticidad del asesor, Declaratoria de originalidad de los autores, Dedicatoria, Agradecimiento, Resumen, Abstract (la guía APA real dice explícitamente "comience el resumen en una nueva página"). Para forzar el salto en la exportación, se inserta este bloque al final de cada una de esas secciones en `output/trabajo/informe.md`:
 
 ```
 ```{=openxml}

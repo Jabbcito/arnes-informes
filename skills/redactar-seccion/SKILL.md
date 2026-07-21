@@ -9,7 +9,7 @@ El alumno pide explícitamente una sección puntual, ej.: "redacta el planteamie
 
 ## Qué hace
 
-1. Redacta únicamente la sección pedida, en `trabajo/informe.md`, en la posición que le corresponde según `../../tesis/estructura-tesis-maestra.md` (o `../../informe/estructura-informe-maestra.md` si no es tesis), siguiendo el patrón de contenido de esa sección — abrir solo el archivo correspondiente en `../../tesis/contenido/` (ver tabla en `../../ROUTING.md`), no la carpeta completa.
+1. Redacta únicamente la sección pedida, en `output/trabajo/informe.md`, en la posición que le corresponde según `../../tesis/estructura-tesis-maestra.md` (o `../../informe/estructura-informe-maestra.md` si no es tesis), siguiendo el patrón de contenido de esa sección — abrir solo el archivo correspondiente en `../../tesis/contenido/` (ver tabla en `../../ROUTING.md`), no la carpeta completa.
 2. Usa solo fuentes `VERIFICADA` citadas en formato APA dentro del texto.
 3. Indica al final de la sección qué fuentes se usaron.
 4. Marca con `[EVIDENCIA PENDIENTE]` cualquier idea que no tenga fuente verificada de respaldo.

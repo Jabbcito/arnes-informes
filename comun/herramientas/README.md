@@ -32,8 +32,8 @@ Formato de los CSV: encabezado en la primera fila; cada fila un caso; separador 
 
 | Script | Qué comprueba | Ejemplo |
 |---|---|---|
-| `verificar_citas.js` | Toda cita tiene referencia y viceversa; fuentes citadas están VERIFICADA; textuales con página | `node verificar_citas.js --informe trabajo/informe.md --investigacion fuentes/investigacion.md --salida trabajo/reporte-citas.md` |
-| `verificar_estructura.js` | Numeración de tablas/figuras correlativa; menciones a Tabla/Figura/Anexo inexistentes; marcadores pendientes; secciones presentes | `node verificar_estructura.js --informe trabajo/informe.md --salida trabajo/reporte-estructura.md` |
+| `verificar_citas.js` | Toda cita tiene referencia y viceversa; fuentes citadas están VERIFICADA; textuales con página | `node verificar_citas.js --informe output/trabajo/informe.md --investigacion fuentes/investigacion.md --salida output/trabajo/reporte-citas.md` |
+| `verificar_estructura.js` | Numeración de tablas/figuras correlativa; menciones a Tabla/Figura/Anexo inexistentes; marcadores pendientes; secciones presentes | `node verificar_estructura.js --informe output/trabajo/informe.md --salida output/trabajo/reporte-estructura.md` |
 
 Ambos devuelven código de salida 1 si hay problemas (útil para la skill `auditar-tesis`).
 

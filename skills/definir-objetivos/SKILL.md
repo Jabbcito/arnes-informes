@@ -21,7 +21,7 @@ Sigue `../../tesis/contenido/objetivos.md`, en dos etapas separadas (nunca junta
 5. Pregunta cuántos objetivos específicos quiere (sugerencia: uno por dimensión, comúnmente 3, pero el alumno decide el número).
 6. Redacta 2-3 opciones por cada específico, cada una ligada a una variable/dimensión concreta del general ya elegido (no verbos sueltos genéricos).
 7. Pregunta explícitamente cuál elige para cada específico — o si quiere combinar/editar.
-8. Con todo elegido, actualiza `trabajo/esquema.md` y `trabajo/matriz-consistencia.md`.
+8. Con todo elegido, actualiza `output/trabajo/esquema.md` y `output/trabajo/matriz-consistencia.md`.
 
 ## No hace
 

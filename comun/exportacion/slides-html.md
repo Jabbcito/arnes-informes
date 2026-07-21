@@ -18,7 +18,7 @@ tema: Presentación de sustentación en HTML y su exportación a PDF
 
 ## Reglas de contenido
 
-- Los datos de las slides salen de `trabajo/informe.md` YA aprobado — la presentación nunca dice algo que la tesis no diga.
+- Los datos de las slides salen de `output/trabajo/informe.md` YA aprobado — la presentación nunca dice algo que la tesis no diga.
 - Tablas: máximo 4-5 filas — se resume o se convierte en cifra destacada; nunca se pega la tabla completa del informe.
 - Colores: cambiar las variables `--primario`/`--acento` del CSS por los de la universidad.
 - Cambios visuales: el alumno toma captura de la slide y pide el ajuste concreto (contraste, tamaño, orden).
@@ -28,7 +28,7 @@ tema: Presentación de sustentación en HTML y su exportación a PDF
 1. Abrir el HTML en Chrome/Edge (doble clic).
 2. Ctrl+P → Destino: **Guardar como PDF**.
 3. Márgenes: **Ninguno** · Activar **Gráficos de fondo**. (El tamaño de página lo fija el `@page` del CSS — no hace falta configurarlo.)
-4. Guardar en `entregables/presentacion.pdf`.
+4. Guardar en `output/entregables/presentacion.pdf`.
 
 ## Verificación
 

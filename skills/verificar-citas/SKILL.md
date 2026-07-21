@@ -12,9 +12,9 @@ Al terminar cada capítulo con citas, y obligatoriamente dentro de `auditar-tesi
 1. Verifica primero `node --version` (regla 20 de `../../AGENTS.md`); si falla, se detiene y sigue las instrucciones de `../../comun/herramientas/README.md`.
 2. Ejecuta:
    ```
-   node comun/herramientas/verificar_citas.js --informe trabajo/informe.md --investigacion fuentes/investigacion.md --salida trabajo/reporte-citas.md
+   node comun/herramientas/verificar_citas.js --informe output/trabajo/informe.md --investigacion fuentes/investigacion.md --salida output/trabajo/reporte-citas.md
    ```
-3. Lee el reporte y convierte cada PROBLEMA en una corrección concreta en `trabajo/informe.md` o `fuentes/investigacion.md` (con confirmación del alumno cuando implique volver a la fuente).
+3. Lee el reporte y convierte cada PROBLEMA en una corrección concreta en `output/trabajo/informe.md` o `fuentes/investigacion.md` (con confirmación del alumno cuando implique volver a la fuente).
 4. Los AVISOS se revisan uno a uno con el alumno (ej. cita textual sin página → buscar la página real en la fuente, nunca inventarla).
 5. Revisa el formato fino que el script no cubre, contra `../../comun/apa/citas.md` y `../../comun/apa/referencias.md` (et al., "y" vs "&", bloque ≥40 palabras, cursivas y DOI en referencias).
 

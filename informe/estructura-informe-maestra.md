@@ -8,7 +8,7 @@ Regla general: cada sección se construye **una por una**, con la evidencia veri
 
 ## 1. Título + variables de estudio
 
-- Título tentativo, derivado de la consigna/rúbrica.
+- Título tentativo, derivado de la insumos/rúbrica.
 - Identificación explícita de la(s) variable(s) de estudio (qué se investiga, sobre qué población o contexto, en qué periodo si aplica).
 - El título se ajusta después de definir el planteamiento del problema; no queda cerrado desde el inicio.
 

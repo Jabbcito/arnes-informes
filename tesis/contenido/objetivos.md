@@ -28,7 +28,7 @@ Los específicos no se redactan "en paralelo" con el general: dependen de qué o
 5. Preguntar cuántos objetivos específicos quiere el alumno: la sugerencia por defecto es uno por dimensión relevante (comúnmente 3, coincide con lo observado en las tesis reales analizadas), pero el alumno puede pedir más, menos, o agruparlas distinto — nunca se asume un número fijo sin preguntar.
 6. Por cada objetivo específico acordado, redactar 2 a 3 opciones **ligadas a una variable/dimensión concreta del general ya elegido** (no una lista genérica de verbos sueltos) — cada opción debe poder leerse como una "pieza" que, sumada a las demás, cubre completo el objetivo general.
 7. Preguntar explícitamente cuál opción prefiere para cada específico — o si prefiere combinar/editar. Nunca se asume la opción 1 por defecto.
-8. Una vez elegidos todos, se registran en `trabajo/esquema.md` y se actualiza `trabajo/matriz-consistencia.md` (misma cantidad y orden que los problemas específicos — regla 14 de `../../AGENTS.md`).
+8. Una vez elegidos todos, se registran en `output/trabajo/esquema.md` y se actualiza `output/trabajo/matriz-consistencia.md` (misma cantidad y orden que los problemas específicos — regla 14 de `../../AGENTS.md`).
 
 ## Ejemplo de formato de presentación (patrón, no copiar literal)
 

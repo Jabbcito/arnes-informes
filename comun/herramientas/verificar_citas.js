@@ -12,8 +12,8 @@
  *      (p. X) → advertencia.
  *
  * Uso:
- *   node verificar_citas.js --informe trabajo/informe.md --investigacion fuentes/investigacion.md
- *   node verificar_citas.js --informe trabajo/informe.md --investigacion fuentes/investigacion.md --salida trabajo/reporte-citas.md
+ *   node verificar_citas.js --informe output/trabajo/informe.md --investigacion fuentes/investigacion.md
+ *   node verificar_citas.js --informe output/trabajo/informe.md --investigacion fuentes/investigacion.md --salida output/trabajo/reporte-citas.md
  *
  * Lo que NO puede validar un script (y queda para el alumno):
  *   - que la paráfrasis refleje fielmente la fuente,
@@ -30,7 +30,7 @@ function parseArgs(argv) {
     else if (arg === '--investigacion') a.investigacion = argv[++i];
     else if (arg === '--salida') a.salida = argv[++i];
   }
-  if (!a.informe) { console.error('Uso: node verificar_citas.js --informe trabajo/informe.md [--investigacion ...] [--salida ...]'); process.exit(2); }
+  if (!a.informe) { console.error('Uso: node verificar_citas.js --informe output/trabajo/informe.md [--investigacion ...] [--salida ...]'); process.exit(2); }
   return a;
 }
 

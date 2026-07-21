@@ -10,7 +10,7 @@ El PDF se genera SIEMPRE desde el DOCX ya acabado (con saltos de sección, numer
 
 1. **Word:** Archivo → Guardar como → PDF (o Exportar → Crear PDF). Recomendado: activar "Crear marcadores usando: Títulos".
 2. **Word para la Web / Google Docs:** subir el DOCX → Descargar como PDF (revisar que no se rompan fuentes).
-3. **LibreOffice (sin licencia de Word):** `soffice --headless --convert-to pdf entregables/informe.docx --outdir entregables/`
+3. **LibreOffice (sin licencia de Word):** `soffice --headless --convert-to pdf output/entregables/informe.docx --outdir output/entregables/`
 
 ## Checklist visual del PDF (abrir y revisar página por página las críticas)
 

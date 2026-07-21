@@ -10,8 +10,8 @@
  *   4. Secciones esperadas presentes (lista configurable con --secciones).
  *
  * Uso:
- *   node verificar_estructura.js --informe trabajo/informe.md
- *   node verificar_estructura.js --informe trabajo/informe.md --salida trabajo/reporte-estructura.md
+ *   node verificar_estructura.js --informe output/trabajo/informe.md
+ *   node verificar_estructura.js --informe output/trabajo/informe.md --salida output/trabajo/reporte-estructura.md
  */
 'use strict';
 const fs = require('fs');
@@ -28,7 +28,7 @@ function parseArgs(argv) {
     else if (arg === '--secciones') a.secciones = argv[++i];
     else if (arg === '--salida') a.salida = argv[++i];
   }
-  if (!a.informe) { console.error('Uso: node verificar_estructura.js --informe trabajo/informe.md [--secciones a,b,c] [--salida ...]'); process.exit(2); }
+  if (!a.informe) { console.error('Uso: node verificar_estructura.js --informe output/trabajo/informe.md [--secciones a,b,c] [--salida ...]'); process.exit(2); }
   return a;
 }
 

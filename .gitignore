@@ -1,14 +1,12 @@
 # Artefactos generados por un alumno al usar el arnés en su propia copia del proyecto.
-# La plantilla en sí (comun/, tesis/, informe/, .opencode/) nunca se ignora.
+# La plantilla en sí (comun/, tesis/, informe/, skills/) nunca se ignora.
 
-consigna/
+insumos/
 fuentes/investigacion.md
-trabajo/
-entregables/
 anexos/imagenes/
+output/
 
 *.local.json
-.opencode/auth.json
 node_modules/
 
 .DS_Store

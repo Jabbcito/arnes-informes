@@ -47,7 +47,7 @@ Esta es la plantilla más completa del sistema. `../informe/estructura-informe-m
 
 ### IV. Resultados
 
-- **Punto de control previo**: el instrumento validado (3.4) se aplica a toda la muestra y el alumno trae `trabajo/datos-principales.csv` con los datos reales — sin ese archivo no se redacta esta sección (`contenido/recoleccion-datos-principal.md`).
+- **Punto de control previo**: el instrumento validado (3.4) se aplica a toda la muestra y el alumno trae `output/trabajo/datos-principales.csv` con los datos reales — sin ese archivo no se redacta esta sección (`contenido/recoleccion-datos-principal.md`).
 - Presentación de hallazgos por objetivo/hipótesis, con tablas y figuras propias (no reutilizadas de otras fuentes).
 
 ### V. Discusión
@@ -82,7 +82,7 @@ Esta es la plantilla más completa del sistema. `../informe/estructura-informe-m
 9. La Dedicatoria y el Agradecimiento se preguntan antes de redactarse ("¿a quién?") — nunca un texto genérico (`contenido/dedicatoria-agradecimiento.md`).
 10. No se redacta ninguna sección más allá de Metodología 3.4 sin que el instrumento tenga alfa de Cronbach ≥ 0.70 confirmado por `../comun/herramientas/confiabilidad.js` sobre datos reales de un piloto (`contenido/instrumento-y-muestra.md`).
 11. Declaratorias, Dedicatoria, Agradecimiento, Resumen y Abstract van cada uno en su propia página en la exportación final (`../comun/exportacion/exportar-word.md`).
-12. No se redacta Resultados (ni Discusión, Conclusiones, Recomendaciones) sin `trabajo/datos-principales.csv` real — el instrumento validado aplicado a toda la muestra, nunca el CSV del piloto (`contenido/recoleccion-datos-principal.md`).
+12. No se redacta Resultados (ni Discusión, Conclusiones, Recomendaciones) sin `output/trabajo/datos-principales.csv` real — el instrumento validado aplicado a toda la muestra, nunca el CSV del piloto (`contenido/recoleccion-datos-principal.md`).
 
 ## Reducción a informe (no-tesis)
 

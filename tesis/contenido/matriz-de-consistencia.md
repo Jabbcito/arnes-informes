@@ -5,7 +5,7 @@ aplica_a: tesis
 
 # Matriz de consistencia
 
-Aparece como **Anexo 1 en la mayoría de tesis reales analizadas**, pero no es un adorno final: es la herramienta de control de coherencia interna de toda la tesis. El arnés la crea temprano (apenas existen problema, objetivos e hipótesis) en `trabajo/matriz-consistencia.md`, la mantiene actualizada, y al final la exporta como anexo.
+Aparece como **Anexo 1 en la mayoría de tesis reales analizadas**, pero no es un adorno final: es la herramienta de control de coherencia interna de toda la tesis. El arnés la crea temprano (apenas existen problema, objetivos e hipótesis) en `output/trabajo/matriz-consistencia.md`, la mantiene actualizada, y al final la exporta como anexo.
 
 ## Estructura (patrón observado)
 
@@ -31,4 +31,4 @@ Cada vez que cambia el título, un objetivo, una hipótesis o una dimensión. Si
 
 ## Formato
 
-Se mantiene como tabla Markdown en `trabajo/matriz-consistencia.md` (ver `tablas-y-figuras.md` para las reglas de tablas y su exportación). En la exportación final va como Anexo 1, normalmente en orientación horizontal por su ancho.
+Se mantiene como tabla Markdown en `output/trabajo/matriz-consistencia.md` (ver `tablas-y-figuras.md` para las reglas de tablas y su exportación). En la exportación final va como Anexo 1, normalmente en orientación horizontal por su ancho.

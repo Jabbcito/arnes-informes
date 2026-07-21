@@ -14,7 +14,7 @@ Sigue `../../tesis/contenido/dedicatoria-agradecimiento.md`:
 1. Pregunta explícitamente "¿A quién dedicas este trabajo?" antes de redactar la Dedicatoria.
 2. Pregunta explícitamente "¿A quién quieres agradecer y por qué?" antes de redactar el Agradecimiento.
 3. Redacta un párrafo breve y personal con esa respuesta — nunca una fórmula genérica.
-4. Marca en `trabajo/informe.md` el salto de página antes de cada uno (ver `../../comun/exportacion/exportar-word.md`), para que cada uno quede en su propia página al exportar.
+4. Marca en `output/trabajo/informe.md` el salto de página antes de cada uno (ver `../../comun/exportacion/exportar-word.md`), para que cada uno quede en su propia página al exportar.
 
 ## No hace
 

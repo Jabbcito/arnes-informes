@@ -5,7 +5,7 @@ fuente: Guía Normas APA 7ª edición (normas-apa.org) — reglas extraídas de 
 
 # Formato APA 7 — Documento
 
-> Regla previa: muchas universidades adaptan APA a sus propias normas. Lo que exija la rúbrica/formato de la universidad del alumno gana sobre esta guía. Esa decisión se registra en `trabajo/brief.md`.
+> Regla previa: muchas universidades adaptan APA a sus propias normas. Lo que exija la rúbrica/formato de la universidad del alumno gana sobre esta guía. Esa decisión se registra en `output/trabajo/brief.md`.
 
 ## Página
 

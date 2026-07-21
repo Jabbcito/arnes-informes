@@ -5,9 +5,9 @@ aplica_a: tesis
 
 # Tablas y figuras
 
-Las tesis reales analizadas usan tablas intensivamente: 15-19 tablas numeradas por tesis. El arnés debe generarlas como tablas Markdown dentro de `trabajo/informe.md`, con un formato que sobreviva la exportación a DOCX/PDF.
+Las tesis reales analizadas usan tablas intensivamente: 15-19 tablas numeradas por tesis. El arnés debe generarlas como tablas Markdown dentro de `output/trabajo/informe.md`, con un formato que sobreviva la exportación a DOCX/PDF.
 
-**Formato por defecto: APA 7** (`../../comun/apa/tablas-figuras-apa.md`: "Tabla N" en negrita, título en cursiva línea aparte, solo bordes horizontales, "*Nota.*"). La alternativa es el formato propio de la universidad (el observado en tesis UCV/UPAO, descrito abajo) — la elección se registra en `trabajo/brief.md` y se aplica en todo el documento (regla 18 de `../../AGENTS.md`). Los datos numéricos de las tablas se generan con los scripts (`node ../../comun/herramientas/descriptivos.js`) o los pega el alumno desde SPSS — nunca los redacta la IA de memoria (regla 17).
+**Formato por defecto: APA 7** (`../../comun/apa/tablas-figuras-apa.md`: "Tabla N" en negrita, título en cursiva línea aparte, solo bordes horizontales, "*Nota.*"). La alternativa es el formato propio de la universidad (el observado en tesis UCV/UPAO, descrito abajo) — la elección se registra en `output/trabajo/brief.md` y se aplica en todo el documento (regla 18 de `../../AGENTS.md`). Los datos numéricos de las tablas se generan con los scripts (`node ../../comun/herramientas/descriptivos.js`) o los pega el alumno desde SPSS — nunca los redacta la IA de memoria (regla 17).
 
 ## Formato estándar de una tabla (sintaxis con caption nativo, ver `../../comun/apa/tablas-figuras-apa.md`)
 

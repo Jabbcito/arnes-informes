@@ -39,6 +39,22 @@ informe/
 
 Nada en este arnés depende del mecanismo propietario de ninguna herramienta (no hay `.opencode/`, `.claude/` ni `.codex/`). `AGENTS.md`, `ROUTING.md` y `skills/*/SKILL.md` son Markdown plano en carpetas de nombre neutro — cualquier agente los lee como documentos de instrucciones siguiendo `ROUTING.md`, que dice exactamente qué abrir para cada paso. Esto es intencional: se prioriza que el arnés funcione igual en cualquier IA por encima de aprovechar el autocompletado nativo `/nombre-skill` que algunas herramientas ofrecen para sus propias carpetas de skills.
 
+## Qué genera el arnés en tu proyecto
+
+Estas carpetas no vienen en la plantilla — las crea el agente (o tú) a medida que trabajas, dentro de tu copia del proyecto:
+
+```
+mi-tesis/
+├── insumos/            # lo que TÚ aportas: rúbrica, indicaciones del asesor, lecturas obligatorias
+├── fuentes/              # fuentes académicas encontradas (PENDIENTE DE VERIFICAR / VERIFICADA)
+├── anexos/imagenes/       # evidencia visual: fichas firmadas, capturas de SPSS, cartas
+└── output/
+    ├── trabajo/            # borradores: informe.md, brief.md, matriz, checklist, piloto.csv, datos-principales.csv
+    └── entregables/         # DOCX/PDF/slides finales
+```
+
+Regla dura (27 en `AGENTS.md`): si compartes algo relevante en el chat — pegas el texto de tu rúbrica, describes una foto, mencionas un dato — el agente lo guarda en el archivo correspondiente en el mismo turno, nunca lo deja solo en la conversación. El contexto del chat no sobrevive entre sesiones; los archivos sí.
+
 ## Requisitos
 
 - **Node.js** (LTS) — para los scripts de `comun/herramientas/`. El arnés comprueba `node --version` antes de usarlos y avisa si falta.

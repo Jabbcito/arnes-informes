@@ -12,7 +12,7 @@ Antes de generar índices, y obligatoriamente dentro de `auditar-tesis` antes de
 1. Verifica primero `node --version` (regla 20 de `../../AGENTS.md`); si falla, se detiene y sigue las instrucciones de `../../comun/herramientas/README.md`.
 2. Ejecuta (hallazgos deterministas):
    ```
-   node comun/herramientas/verificar_estructura.js --informe trabajo/informe.md --salida trabajo/reporte-estructura.md
+   node comun/herramientas/verificar_estructura.js --informe output/trabajo/informe.md --salida output/trabajo/reporte-estructura.md
    ```
    Detecta: numeración de tablas/figuras salteada o duplicada, menciones a Tabla/Figura/Anexo inexistentes, marcadores pendientes, secciones faltantes.
 3. Revisión de lectura (juicio, contra `../../comun/apa/`):

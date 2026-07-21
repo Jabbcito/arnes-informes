@@ -12,7 +12,7 @@ Cada skill cubre un tramo del flujo definido en `../AGENTS.md` y `../tesis/estru
 | 4 | `investigar-fuentes` | Búsqueda en `fuentes-permitidas.md` → `investigacion.md` |
 | 5 | `construir-marco-teorico` | Antecedentes (por alcance en tesis) + bases teóricas (solo fuentes VERIFICADA) |
 | 6 | `construir-instrumento` | Muestra (simple o estratificada) + ítems por indicador + piloto real + **gate de alfa de Cronbach ≥0.70** antes de seguir |
-| 7 | `recolectar-datos-principales` | **Segundo gate**: exige `trabajo/datos-principales.csv` real (instrumento aplicado a toda la muestra) antes de Resultados |
+| 7 | `recolectar-datos-principales` | **Segundo gate**: exige `output/trabajo/datos-principales.csv` real (instrumento aplicado a toda la muestra) antes de Resultados |
 | 8 | `redactar-seccion` | Planteamiento, introducción, desarrollo/resultados, conclusiones, recomendaciones |
 | 9 | `redactar-discusion` | Discusión (solo tesis): contrasta resultados propios contra el marco teórico |
 | 10 | `redactar-preliminares` | Dedicatoria/Agradecimiento — **pregunta a quién** antes de redactar |
@@ -24,4 +24,4 @@ Cada skill cubre un tramo del flujo definido en `../AGENTS.md` y `../tesis/estru
 | 16 | `exportar-entrega` | Carátula, anexos, DOCX/PDF vía Pandoc + plantilla APA, checklist final. Deja pendientes de firma las declaratorias — nunca inventa el % de Turnitin |
 | 17 | `generar-slides` | `informe.md` → plantilla `comun/exportacion/plantillas/slides-base.html` → PDF (PPTX opcional) |
 
-Transversal: la **matriz de consistencia** (`trabajo/matriz-consistencia.md`) se crea con `generar-tabla` apenas existen problema/objetivos/hipótesis, y toda skill que toque objetivos, hipótesis o variables la mantiene cuadrada (regla 14 de `../AGENTS.md`). Todo cálculo estadístico pasa por `../comun/herramientas/` o SPSS/Jamovi (regla 17) — nunca aritmética "de cabeza".
+Transversal: la **matriz de consistencia** (`output/trabajo/matriz-consistencia.md`) se crea con `generar-tabla` apenas existen problema/objetivos/hipótesis, y toda skill que toque objetivos, hipótesis o variables la mantiene cuadrada (regla 14 de `../AGENTS.md`). Todo cálculo estadístico pasa por `../comun/herramientas/` o SPSS/Jamovi (regla 17) — nunca aritmética "de cabeza".

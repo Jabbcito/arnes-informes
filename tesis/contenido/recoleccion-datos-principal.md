@@ -14,13 +14,13 @@ El instrumento ya está validado: Metodología 3.4 tiene un alfa de Cronbach rea
 ## Secuencia obligatoria
 
 1. **Aplicar el instrumento ya validado a toda la muestra**: el mismo cuestionario/ficha que pasó el piloto (no una versión distinta), aplicado a los `n` casos calculados en Metodología 3.3 (o a toda la población si el diseño es censo/documental — ver `../../comun/formulas/elegir-diseno.md`). Esto es trabajo de campo real del alumno, **fuera del arnés** — la IA no puede simularlo ni generarlo.
-2. **Traer el dataset completo**: el alumno guarda los resultados reales en `trabajo/datos-principales.csv` (filas = encuestados/casos reales, columnas = ítems o variables — mismo formato que espera `../../comun/herramientas/descriptivos.js` y `../../comun/herramientas/correlacion.js`). El arnés no continúa sin este archivo.
+2. **Traer el dataset completo**: el alumno guarda los resultados reales en `output/trabajo/datos-principales.csv` (filas = encuestados/casos reales, columnas = ítems o variables — mismo formato que espera `../../comun/herramientas/descriptivos.js` y `../../comun/herramientas/correlacion.js`). El arnés no continúa sin este archivo.
 3. **Chequeo de sanidad (de conteo, no estadístico)**: comparar el número de filas del CSV contra el `n` registrado en Metodología 3.3. Si difiere bastante, avisar al alumno (puede ser un CSV incompleto, de otro estudio, o de una etapa de piloto por error) — pero no bloquear si el alumno confirma que el número es correcto (por ejemplo, ya descontó la tasa de no-respuesta al calcular `n`, o el diseño es un censo).
-4. Solo con este archivo real presente: correr `node ../../comun/herramientas/descriptivos.js trabajo/datos-principales.csv ...` y `node ../../comun/herramientas/correlacion.js trabajo/datos-principales.csv ...` para las tablas de Resultados, y recién entonces redactar la sección.
+4. Solo con este archivo real presente: correr `node ../../comun/herramientas/descriptivos.js output/trabajo/datos-principales.csv ...` y `node ../../comun/herramientas/correlacion.js output/trabajo/datos-principales.csv ...` para las tablas de Resultados, y recién entonces redactar la sección.
 
 ## Regla dura
 
-**No se redacta Resultados, Discusión, Conclusiones ni Recomendaciones sin `trabajo/datos-principales.csv` real.** Nunca se usa el CSV del piloto (`trabajo/piloto.csv`) para esto — el piloto solo sirve para validar el instrumento, no para reportar resultados de la investigación. Nunca se inventan filas "de ejemplo" para poder avanzar más rápido mientras el alumno termina de recolectar: si el archivo no existe todavía, se marca `[EVIDENCIA PENDIENTE]` en Resultados y se detiene ahí.
+**No se redacta Resultados, Discusión, Conclusiones ni Recomendaciones sin `output/trabajo/datos-principales.csv` real.** Nunca se usa el CSV del piloto (`output/trabajo/piloto.csv`) para esto — el piloto solo sirve para validar el instrumento, no para reportar resultados de la investigación. Nunca se inventan filas "de ejemplo" para poder avanzar más rápido mientras el alumno termina de recolectar: si el archivo no existe todavía, se marca `[EVIDENCIA PENDIENTE]` en Resultados y se detiene ahí.
 
 ## Por qué este orden importa
 
