@@ -50,6 +50,14 @@ Formato de los CSV: encabezado en la primera fila; cada fila un caso; separador 
 
 Ambos devuelven código de salida 1 si hay problemas (útil para la skill `auditar-tesis`).
 
+## Inicialización del proyecto
+
+| Script | Qué hace | Ejemplo |
+|---|---|---|
+| `inicializar_proyecto.js` | Crea (si faltan) `insumos/`, `fuentes/`, `fuentes/pdfs/`, `anexos/imagenes/`, `output/trabajo/`, `output/entregables/` — idempotente, no toca nada que ya exista | `node inicializar_proyecto.js` |
+
+Se corre una sola vez al empezar un proyecto (ver "Primer paso, siempre" en `../../AGENTS.md`), pero correrlo de más no hace daño.
+
 ## Límite honesto
 
 - Los verificadores son deterministas pero no infalibles: detectan errores de correspondencia y formato mecánico; **no** pueden juzgar si una paráfrasis es fiel a su fuente ni si el formato fino APA de cada referencia (cursivas, DOI) es perfecto — eso queda en la revisión del alumno guiada por `../apa/`.

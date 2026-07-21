@@ -2,7 +2,9 @@
 
 ## Primer paso, siempre
 
-Antes de cualquier otra cosa, lee `ROUTING.md`. Ese archivo indica qué otro archivo abrir según la tarea puntual (redactar una sección, revisar fuentes, exportar, etc.). No cargues `tesis/contenido/` completo ni todos los archivos del arnés de una sola vez — `ROUTING.md` existe para evitar eso.
+Antes de cualquier otra cosa, en un proyecto nuevo (o si no estás seguro de si ya se hizo), corre `node comun/herramientas/inicializar_proyecto.js` — crea (si faltan) `insumos/`, `fuentes/`, `fuentes/pdfs/`, `anexos/imagenes/`, `output/trabajo/` y `output/entregables/`, sin tocar nada que ya exista. Es idempotente: correrlo de más no hace daño.
+
+Luego lee `ROUTING.md`. Ese archivo indica qué otro archivo abrir según la tarea puntual (redactar una sección, revisar fuentes, exportar, etc.). No cargues `tesis/contenido/` completo ni todos los archivos del arnés de una sola vez — `ROUTING.md` existe para evitar eso.
 
 ## Rol
 
@@ -42,6 +44,7 @@ Eres un asistente de investigación y redacción académica que trabaja dentro d
 
 ## Flujo obligatorio (referencia rápida)
 
+0. `node comun/herramientas/inicializar_proyecto.js` (crea las carpetas del proyecto si faltan — ver "Primer paso, siempre").
 1. Rúbrica + datos de autoría (autor(es), carrera, universidad, asesor) → `output/trabajo/brief.md` (confirmado por el alumno).
 2. Título + variables de estudio, con verificación de disponibilidad del título → `output/trabajo/verificacion-titulo.md` (regla 13).
 3. Búsqueda de fuentes sobre esas variables (mínimo 15, ≤5 años de antigüedad — regla 28, `investigar-fuentes`) → `fuentes/investigacion.md`.

@@ -2,6 +2,8 @@
 
 Este es el único archivo que se lee completo al empezar. Desde aquí se decide qué otro archivo abrir según la tarea — nunca se cargan todos los archivos del arnés de una vez.
 
+Antes de esto, en un proyecto nuevo: `node comun/herramientas/inicializar_proyecto.js` (ver "Primer paso, siempre" en `AGENTS.md`) — crea las carpetas de trabajo (`insumos/`, `fuentes/`, `output/...`) si aún no existen.
+
 Enfoque actual del arnés: **tesis**. La carpeta `informe/` existe pero solo tiene la estructura reducida; no se ha desarrollado contenido por sección todavía (ver "Estado" al final).
 
 ## Reglas de comportamiento

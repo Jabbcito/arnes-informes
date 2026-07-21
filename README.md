@@ -11,7 +11,7 @@ No es un generador de tareas de un solo clic. El agente construye el trabajo sec
    ```bash
    opencode "mi-tesis"
    ```
-3. Empieza la conversación pidiendo ayuda con tu tarea/tesis. El agente lee `AGENTS.md` y `ROUTING.md` automáticamente y sigue el flujo desde ahí.
+3. Empieza la conversación pidiendo ayuda con tu tarea/tesis. El agente lee `AGENTS.md` y `ROUTING.md` automáticamente y, como primer paso, corre `node comun/herramientas/inicializar_proyecto.js` — crea las carpetas de trabajo (ver más abajo) antes de seguir.
 
 ## Estructura
 
@@ -66,7 +66,7 @@ Nada en este arnés depende del mecanismo propietario de ninguna herramienta (no
 
 ## Qué genera el arnés en tu proyecto
 
-Estas carpetas no vienen en la plantilla — las crea el agente (o tú) a medida que trabajas, dentro de tu copia del proyecto:
+Estas carpetas no vienen en la plantilla — el agente las crea todas de una vez, vacías, al primer paso (`comun/herramientas/inicializar_proyecto.js`), y luego las va llenando a medida que trabajas:
 
 ```
 mi-tesis/
