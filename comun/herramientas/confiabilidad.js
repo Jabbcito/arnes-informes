@@ -9,18 +9,22 @@
  *   node confiabilidad.js piloto.csv                # alfa de Cronbach (Likert / escalas)
  *   node confiabilidad.js piloto.csv --kr20         # KR-20 (ítems dicotómicos 0/1)
  *   node confiabilidad.js piloto.csv --sin-encabezado
+ *   node confiabilidad.js piloto.csv --salida output/trabajo/calculo-alfa.md
  *
  * Imprime varianzas por ítem y el cálculo paso a paso. Sin dependencias externas.
  */
 'use strict';
 const { readCsv } = require('./lib-csv');
 const { varianceSample } = require('./lib-stats');
+const { imprimirYGuardar } = require('./lib-salida');
 
 function parseArgs(argv) {
   const a = { kr20: false, sinEncabezado: false };
-  for (const arg of argv) {
+  for (let i = 0; i < argv.length; i++) {
+    const arg = argv[i];
     if (arg === '--kr20') a.kr20 = true;
     else if (arg === '--sin-encabezado') a.sinEncabezado = true;
+    else if (arg === '--salida') a.salida = argv[++i];
     else a.csv = arg;
   }
   if (!a.csv) { console.error('Uso: node confiabilidad.js archivo.csv [--kr20] [--sin-encabezado]'); process.exit(2); }
@@ -94,24 +98,27 @@ function main() {
   const a = parseArgs(process.argv.slice(2));
   const datos = cargarDatos(a.csv, !a.sinEncabezado);
   const n = datos.length, k = datos[0].length;
-  console.log(`Encuestados: ${n} | Ítems: ${k}`);
+  const lineas = [`Encuestados: ${n} | Ítems: ${k}`];
 
   let coef, nombre;
   if (a.kr20) {
     const r = kr20(datos);
-    console.log('Fórmula KR-20: (k/(k-1)) · (1 - Σp·q / Vt)');
-    console.log(`  Σp·q = ${r.sumPq.toFixed(4)} | Vt = ${r.varTotal.toFixed(4)}`);
+    lineas.push('Fórmula KR-20: (k/(k-1)) · (1 - Σp·q / Vt)');
+    lineas.push(`  Σp·q = ${r.sumPq.toFixed(4)} | Vt = ${r.varTotal.toFixed(4)}`);
     coef = r.coef; nombre = 'KR-20';
   } else {
     const r = alfaCronbach(datos);
-    console.log('Fórmula alfa de Cronbach: (k/(k-1)) · (1 - ΣVi / Vt)');
-    console.log('  Varianza por ítem: ' + r.varItems.map((v) => v.toFixed(4)).join(', '));
-    console.log(`  ΣVi = ${r.sumVi.toFixed(4)} | Vt (varianza de totales) = ${r.varTotal.toFixed(4)}`);
+    lineas.push('Fórmula alfa de Cronbach: (k/(k-1)) · (1 - ΣVi / Vt)');
+    lineas.push('  Varianza por ítem: ' + r.varItems.map((v) => v.toFixed(4)).join(', '));
+    lineas.push(`  ΣVi = ${r.sumVi.toFixed(4)} | Vt (varianza de totales) = ${r.varTotal.toFixed(4)}`);
     coef = r.alfa; nombre = 'Alfa de Cronbach';
   }
 
-  console.log(`\n${nombre} = ${coef.toFixed(3)}  → confiabilidad ${interpretar(coef)}`);
-  console.log('\nNota: cálculo con varianza muestral (n-1), igual que SPSS. Contrasta con SPSS si tu asesor lo exige.');
+  lineas.push('');
+  lineas.push(`${nombre} = ${coef.toFixed(3)}  → confiabilidad ${interpretar(coef)}`);
+  lineas.push('');
+  lineas.push('Nota: cálculo con varianza muestral (n-1), igual que SPSS. Contrasta con SPSS si tu asesor lo exige.');
+  imprimirYGuardar(lineas, a.salida);
 }
 
 main();

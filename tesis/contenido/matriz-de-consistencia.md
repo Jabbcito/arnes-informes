@@ -31,4 +31,4 @@ Cada vez que cambia el título, un objetivo, una hipótesis o una dimensión. Si
 
 ## Formato
 
-Se mantiene como tabla Markdown en `output/trabajo/matriz-consistencia.md` (ver `tablas-y-figuras.md` para las reglas de tablas y su exportación). En la exportación final va como Anexo 1, normalmente en orientación horizontal por su ancho.
+Se mantiene como tabla Markdown en `output/trabajo/matriz-consistencia.md` (ver `tablas-y-figuras.md` para las reglas de tablas y su exportación). En la exportación final va como Anexo 1, **en orientación horizontal automática** (ver `../../comun/exportacion/exportar-word.md`, "Tablas anchas") — es una tabla de 5 columnas y no se puede evitar que Problema/Objetivo/Hipótesis sean oraciones completas (deben coincidir palabra por palabra con el resto de la tesis, regla 2 de coherencia arriba), así que la columna **Metodología** se mantiene lo más corta posible (frases separadas por punto y coma, no un párrafo) para no sumar más ancho del necesario — es la única columna donde sí hay margen para acortar sin perder la coherencia exigida.

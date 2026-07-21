@@ -5,7 +5,9 @@ aplica_a: tesis
 
 # Marco teórico — Antecedentes
 
-Cada antecedente sigue una fórmula fija y solo se redacta a partir de una fuente `VERIFICADA` en `fuentes/investigacion.md`. Los 6 datos son obligatorios; si falta alguno, se marca `[EVIDENCIA PENDIENTE]` en ese campo, no se omite en silencio:
+Antes de redactar, confirma que `../../skills/investigar-fuentes/SKILL.md` ya se ejecutó completo (Fase A + Fase B: mínimo 15 fuentes ≤5 años, descargadas y leídas por completo, no solo por su resumen de buscador). Si faltan fuentes categoría "antecedente-empírico" en `fuentes/investigacion.md`, vuelve a `investigar-fuentes` en vez de redactar con lo que haya.
+
+Cada antecedente sigue una fórmula fija y solo se redacta a partir de una fuente `VERIFICADA` en `fuentes/investigacion.md`. Los 6 datos son obligatorios; si falta alguno, se marca `[EVIDENCIA PENDIENTE]` en ese campo — pero solo cuando la fuente sí se leyó completa (Fase B de `investigar-fuentes`) y ese dato específico genuinamente no aparece en ella, nunca porque no se buscó lo suficiente:
 
 > **[Autor(es)] ([año])** + [país/contexto donde se hizo el estudio] + [objetivo del estudio] + [tipo/diseño/enfoque metodológico] + [muestra/técnica de recolección] + [resultado con cifra concreta] + [conclusión del autor].
 

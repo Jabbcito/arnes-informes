@@ -14,6 +14,12 @@ Ninguna fuente entra al informe solo por estar en esta lista: además debe pasar
 | SciELO | https://scielo.org | Revistas científicas de acceso abierto |
 | Redalyc | https://www.redalyc.org | Revistas científicas de acceso abierto |
 | Dialnet | https://dialnet.unirioja.es | Portal de difusión científica hispana |
+| DOAJ | https://doaj.org | Directorio de revistas de acceso abierto |
+| CORE | https://core.ac.uk | Agregador de millones de repositorios de acceso abierto |
+| BASE | https://base-search.net | Motor de búsqueda académico (Universidad de Bielefeld) |
+| Semantic Scholar | https://www.semanticscholar.org | Buscador académico con resúmenes e indexación por IA |
+| ERIC | https://eric.ed.gov | Base especializada en educación — útil para tesis educativas/pedagógicas |
+| Latindex | https://www.latindex.org | Catálogo de revistas científicas de América Latina, el Caribe, España y Portugal |
 
 ## Fuentes oficiales de Perú
 
@@ -30,6 +36,12 @@ Ninguna fuente entra al informe solo por estar en esta lista: además debe pasar
 |---|---|
 | PUCP | repositorio.pucp.edu.pe |
 | UNMSM | cybertesis.unmsm.edu.pe |
+| UNI | repositorio.uni.edu.pe |
+| UNALM | repositorio.lamolina.edu.pe |
+| UNSA | repositorio.unsa.edu.pe |
+| Universidad César Vallejo (UCV) | repositorio.ucv.edu.pe |
+| Universidad Continental | repositorio.continental.edu.pe |
+| Universidad San Martín de Porres (USMP) | repositorio.usmp.edu.pe |
 
 ## Fuentes agregadas por el alumno
 

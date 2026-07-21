@@ -8,7 +8,7 @@ aplica_a: tesis
 Sigue siempre este orden, con contenido específico en cada punto:
 
 1. **Tipo y diseño**: tipo (básica/aplicada), enfoque (cuantitativo/cualitativo/mixto), nivel/alcance (descriptivo, correlacional, explicativo), diseño (experimental, no experimental, pre-experimental), cada término definido y citado (no basta con nombrarlo).
-2. **Variables y operacionalización**: por cada variable, definición conceptual + definición operacional + tabla (variable, dimensiones, indicadores, escala de medición).
+2. **Variables y operacionalización**: por cada variable, un párrafo en prosa con la definición conceptual + definición operacional (citando la fuente `VERIFICADA`, no repetido dentro de la tabla) — seguido de la tabla de operacionalización con **solo 4 columnas**: variable, dimensiones, indicadores, escala de medición. Las celdas van con frases cortas (no oraciones completas): esto es necesario para que la tabla quepa legible incluso en orientación horizontal (ver `../../comun/exportacion/exportar-word.md`, "Tablas anchas") — una tabla de 6 columnas con oraciones largas queda ilegible en la exportación, verificado.
 3. **Población, muestra y muestreo**: población con criterios de inclusión y exclusión explícitos; muestra (tamaño y cómo se calculó, o unidad de análisis si es un estudio documental/observacional en vez de encuesta); tipo de muestreo.
 4. **Técnicas e instrumentos**: técnica (encuesta, observación directa, análisis documental) + instrumento (cuestionario, ficha de registro) + validez (juicio de expertos, cuántos) + confiabilidad (alfa de Cronbach u otro coeficiente, con el valor obtenido si ya existe piloto).
 5. **Procedimiento**: pasos concretos de cómo se ejecutó la recolección y el análisis, en orden cronológico.

@@ -7,6 +7,7 @@
  * Uso:
  *   node correlacion.js datos.csv --x PuntajeRS --y PuntajeRA            # Spearman (default)
  *   node correlacion.js datos.csv --x PuntajeRS --y PuntajeRA --pearson
+ *   node correlacion.js datos.csv --x PuntajeRS --y PuntajeRA --salida output/trabajo/calculo-tabla-4.md
  *
  * Método del p-valor: estadístico t = r·sqrt((n-2)/(1-r²)) contra la
  * distribución t de Student con n-2 grados de libertad (CDF calculada con la
@@ -17,6 +18,7 @@
 'use strict';
 const { readCsvObjects } = require('./lib-csv');
 const { pBilateralT } = require('./lib-stats');
+const { imprimirYGuardar } = require('./lib-salida');
 
 function parseArgs(argv) {
   const a = { pearson: false };
@@ -25,6 +27,7 @@ function parseArgs(argv) {
     if (arg === '--x') a.x = argv[++i];
     else if (arg === '--y') a.y = argv[++i];
     else if (arg === '--pearson') a.pearson = true;
+    else if (arg === '--salida') a.salida = argv[++i];
     else a.csv = arg;
   }
   if (!a.csv || !a.x || !a.y) {
@@ -100,14 +103,18 @@ function main() {
     p = pBilateralT(Math.abs(t), gl);
   }
 
-  console.log(`n = ${n} | gl = ${gl}`);
-  console.log(`${nombre} = ${r.toFixed(3)}`);
-  console.log(`p (bilateral, aprox. t) = ${p.toFixed(4)}`);
-  console.log(`Interpretación: ${interpretarRho(r)}; ` + (p < 0.05 ? 'significativa al 0.05' : 'NO significativa al 0.05'));
   const rLabel = a.pearson ? 'r' : 'rho';
   const pLabel = p < 0.001 ? '<0.001' : p.toFixed(3);
-  console.log(`\nReporte sugerido: (${rLabel}=${r.toFixed(3)}; p=${pLabel})`);
-  console.log('Nota: para n pequeño o valores límite, contrastar con SPSS/Jamovi.');
+  const lineas = [
+    `n = ${n} | gl = ${gl}`,
+    `${nombre} = ${r.toFixed(3)}`,
+    `p (bilateral, aprox. t) = ${p.toFixed(4)}`,
+    `Interpretación: ${interpretarRho(r)}; ` + (p < 0.05 ? 'significativa al 0.05' : 'NO significativa al 0.05'),
+    '',
+    `Reporte sugerido: (${rLabel}=${r.toFixed(3)}; p=${pLabel})`,
+    'Nota: para n pequeño o valores límite, contrastar con SPSS/Jamovi.',
+  ];
+  imprimirYGuardar(lineas, a.salida);
 }
 
 main();

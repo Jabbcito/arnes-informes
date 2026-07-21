@@ -29,16 +29,18 @@ Muestra (`../herramientas/muestra.js`) → confiabilidad (`../herramientas/confi
 |---|---|---|
 | Muestra | Con frecuencia censo o muestreo por conveniencia (justificar) | — |
 | Normalidad de las DIFERENCIAS pre-post | Shapiro-Wilk | SPSS/Jamovi |
-| Prueba | Normales → **t de Student pareada**; no normales → **Wilcoxon** | SPSS/Jamovi |
+| Prueba | Normales → **t de Student pareada**; no normales → **Wilcoxon** | SPSS/Jamovi (pareada/Wilcoxon no están en `../herramientas/` — ver nota de límites abajo) |
 | Reporte | (t=X.XX; gl=N-1; p=0.XXX) o (Z=X.XX; p=0.XXX) | — |
 
 ### 4. Cuasi-experimental / experimental (grupo experimental vs control)
 
-Normalidad por grupo → normales: **t de Student para muestras independientes** (2 grupos) o **ANOVA** (3+); no normales: **U de Mann-Whitney** (2) o **Kruskal-Wallis** (3+). Todo en SPSS/Jamovi.
+Normalidad por grupo (Shapiro-Wilk/K-S, SPSS/Jamovi) →
+- **2 grupos**: normales → **t de Student para muestras independientes**, `../herramientas/prueba-t.js` (Welch, no exige antes una prueba de igualdad de varianzas); no normales → **U de Mann-Whitney** (SPSS/Jamovi, no está en `../herramientas/`).
+- **3+ grupos**: normales → **ANOVA de un factor**, `../herramientas/anova.js` (sin comparaciones post-hoc — si sale significativo y hace falta saber qué pares difieren, eso sí en SPSS/Jamovi); no normales → **Kruskal-Wallis** (SPSS/Jamovi).
 
 ### 5. Asociación entre variables categóricas (niveles, no puntajes)
 
-**Chi-cuadrado de independencia** sobre la tabla cruzada (`../herramientas/descriptivos.js` genera la tabla; el chi-cuadrado en SPSS/Jamovi). Reporte: (χ²=X.XX; gl=X; p=0.XXX).
+**Chi-cuadrado de independencia** sobre la tabla cruzada: `../herramientas/chi-cuadrado.js` (calcula la tabla, el estadístico, gl, p-valor y V de Cramér en un solo paso — igual que `Crosstabs` de SPSS con la opción de chi-cuadrado activada). Reporte: (χ²(gl, N=n)=X.XX; p=0.XXX; V=X.XX).
 
 ### 6. Documental / revisión (análisis de documentos, tesis, registros)
 

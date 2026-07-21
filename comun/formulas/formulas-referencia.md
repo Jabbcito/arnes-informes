@@ -51,19 +51,25 @@ Interpretación del coeficiente (|r|): ≥0.9 muy alta · ≥0.7 alta · ≥0.4 
 
 Reporte: (rho=−0.799; p<0.001) → `node ../herramientas/correlacion.js datos.csv --x V1 --y V2`
 
-## Comparación de grupos (en SPSS/Jamovi)
+## Comparación de grupos
 
 | Situación | Normales | No normales |
 |---|---|---|
-| Un grupo, pre-post (pareadas) | t de Student pareada | Wilcoxon |
-| Dos grupos independientes | t de Student independiente | U de Mann-Whitney |
-| Tres o más grupos | ANOVA de un factor | Kruskal-Wallis |
+| Un grupo, pre-post (pareadas) | t de Student pareada (SPSS/Jamovi) | Wilcoxon (SPSS/Jamovi) |
+| Dos grupos independientes | **t de Student independiente** — `node ../herramientas/prueba-t.js datos.csv --grupo COL --valor COL` | U de Mann-Whitney (SPSS/Jamovi) |
+| Tres o más grupos | **ANOVA de un factor** — `node ../herramientas/anova.js datos.csv --grupo COL --valor COL` | Kruskal-Wallis (SPSS/Jamovi) |
 
-Reporte típico: (t=X.XX; gl=XX; p=0.XXX) · (F=X.XX; gl=X,XX; p=0.XXX) · (U=XX; p=0.XXX).
+**t de Student (independientes, Welch)**: t = (x̄₁−x̄₂) / √(V₁/n₁ + V₂/n₂) — no asume varianzas iguales entre grupos, así que no hace falta correr antes una prueba de homogeneidad de varianzas. gl por la aproximación de Welch-Satterthwaite. Tamaño del efecto: d de Cohen.
+
+**ANOVA de un factor**: F = CM_entre/CM_dentro, con CM_entre = SC_entre/(k−1) y CM_dentro = SC_dentro/(N−k) (k = nº de grupos). Tamaño del efecto: eta cuadrado = SC_entre/SC_total. Sin comparaciones post-hoc (Tukey, Bonferroni): si el ANOVA sale significativo y hace falta saber qué pares de grupos difieren entre sí, eso se corre en SPSS/Jamovi — implementar mal un post-hoc es más riesgoso que no tenerlo.
+
+Reporte típico: (t(gl)=X.XX; p=0.XXX; d=X.XX) · (F(gl1,gl2)=X.XX; p=0.XXX; η²=X.XX) · (U=XX; p=0.XXX).
 
 ## Asociación de categóricas
 
-**Chi-cuadrado de independencia**:  χ² = Σ (O−E)²/E — O: frecuencia observada; E: esperada = (total fila × total columna)/n. gl = (filas−1)·(columnas−1). Requisito usual: <20% de celdas con E<5. Reporte: (χ²=X.XX; gl=X; p=0.XXX).
+**Chi-cuadrado de independencia**:  χ² = Σ (O−E)²/E — O: frecuencia observada; E: esperada = (total fila × total columna)/n. gl = (filas−1)·(columnas−1). Requisito usual: <20% de celdas con E<5 (el script avisa si no se cumple). Tamaño del efecto: V de Cramér = √(χ²/(n·mín(filas−1,columnas−1))). Reporte: (χ²(gl,N=n)=X.XX; p=0.XXX; V=X.XX).
+
+→ `node ../herramientas/chi-cuadrado.js datos.csv --x COL1 --y COL2`
 
 ## Cómo se escribe en la tesis
 

@@ -46,7 +46,7 @@ Evitar: repetir la tabla en prosa fila por fila; usar "se observa que", "se pued
 
 | Tipo | Dónde va | Contenido |
 |---|---|---|
-| Operacionalización de variables | Metodología 3.2 (y anexo) | Variable, def. conceptual, def. operacional, dimensiones, indicadores, ítems, escala |
+| Operacionalización de variables | Metodología 3.2 (y anexo) | Variable, dimensiones, indicadores, escala — 4 columnas; las definiciones conceptual/operacional van en prosa antes de la tabla, no como columnas (ver `metodologia.md`) |
 | Población / muestra | Metodología 3.3 | Composición (ej. por sexo, por grupo) y totales |
 | Confiabilidad | Metodología 3.4 | Coeficiente (alfa de Cronbach) y N de elementos |
 | Frecuencias | Resultados descriptivos | Categorías, frecuencia, %, % válido, % acumulado — una por variable y por dimensión |

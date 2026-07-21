@@ -14,6 +14,25 @@ function varianceSample(xs) {
   return sumSq / (xs.length - 1);
 }
 
+function standardDeviation(xs) {
+  return Math.sqrt(varianceSample(xs));
+}
+
+function median(xs) {
+  const ys = [...xs].sort((a, b) => a - b);
+  const n = ys.length;
+  const mid = Math.floor(n / 2);
+  return n % 2 === 0 ? (ys[mid - 1] + ys[mid]) / 2 : ys[mid];
+}
+
+// Moda: valor(es) más frecuente(s). Devuelve un array (puede haber empate/multimodal).
+function mode(xs) {
+  const cnt = new Map();
+  for (const x of xs) cnt.set(x, (cnt.get(x) || 0) + 1);
+  const maxFreq = Math.max(...cnt.values());
+  return [...cnt.entries()].filter(([, f]) => f === maxFreq).map(([v]) => v).sort((a, b) => a - b);
+}
+
 // ---------- t de Student: p-valor bilateral vía beta incompleta regularizada ----------
 
 function logGamma(x) {
@@ -69,4 +88,61 @@ function pBilateralT(t, gl) {
   return betai(gl / 2.0, 0.5, gl / (gl + t * t));
 }
 
-module.exports = { mean, varianceSample, pBilateralT };
+// p-valor (cola derecha) para un estadístico F con gl1/gl2 grados de libertad.
+// Se reutiliza la misma beta incompleta regularizada que ya usa pBilateralT
+// (relación conocida entre la distribución F y la Beta: no hace falta código nuevo).
+function pF(f, gl1, gl2) {
+  if (f <= 0) return 1.0;
+  return betai(gl2 / 2.0, gl1 / 2.0, gl2 / (gl2 + gl1 * f));
+}
+
+// ---------- Chi-cuadrado: p-valor vía función gamma incompleta regularizada ----------
+// Mismo estilo (Numerical Recipes) que logGamma/betacf/betai de arriba.
+
+function gammaSerie(a, x, itmax = 200, eps = 3e-9) {
+  let ap = a;
+  let sum = 1.0 / a;
+  let del = sum;
+  for (let n = 1; n <= itmax; n++) {
+    ap += 1;
+    del *= x / ap;
+    sum += del;
+    if (Math.abs(del) < Math.abs(sum) * eps) break;
+  }
+  return sum * Math.exp(-x + a * Math.log(x) - logGamma(a));
+}
+
+function gammaCF(a, x, itmax = 200, eps = 3e-9, fpmin = 1e-30) {
+  let b = x + 1 - a;
+  let c = 1 / fpmin;
+  let d = 1 / b;
+  let h = d;
+  for (let i = 1; i <= itmax; i++) {
+    const an = -i * (i - a);
+    b += 2;
+    d = an * d + b;
+    if (Math.abs(d) < fpmin) d = fpmin;
+    c = b + an / c;
+    if (Math.abs(c) < fpmin) c = fpmin;
+    d = 1 / d;
+    const del = d * c;
+    h *= del;
+    if (Math.abs(del - 1) < eps) break;
+  }
+  return Math.exp(-x + a * Math.log(x) - logGamma(a)) * h;
+}
+
+// Función gamma incompleta inferior regularizada P(a,x) = γ(a,x)/Γ(a).
+function gammaP(a, x) {
+  if (x < 0 || a <= 0) throw new Error('gammaP: argumentos inválidos');
+  if (x === 0) return 0;
+  return x < a + 1 ? gammaSerie(a, x) : 1 - gammaCF(a, x);
+}
+
+// p-valor (cola derecha) de chi-cuadrado: P(X² ≥ x2) con gl grados de libertad.
+function pChiCuadrado(x2, gl) {
+  if (x2 <= 0) return 1.0;
+  return 1 - gammaP(gl / 2.0, x2 / 2.0);
+}
+
+module.exports = { mean, varianceSample, standardDeviation, median, mode, pBilateralT, pF, pChiCuadrado };

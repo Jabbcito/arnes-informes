@@ -8,12 +8,14 @@
  *   node muestra.js --N 500 --z 1.96 --p 0.5 --e 0.03
  *   node muestra.js --N 120 --estratos "Ciclo1:40,Ciclo2:35,Ciclo3:45"   # muestreo estratificado proporcional
  *   node muestra.js --interactivo           # pregunta los valores paso a paso, sin memorizar flags
+ *   node muestra.js --N 120 --salida output/trabajo/calculo-muestra.md
  *
  * Imprime la fórmula con los valores sustituidos, para que el alumno pueda
  * explicar el cálculo en la sustentación. Sin dependencias externas.
  */
 'use strict';
 const readline = require('readline');
+const { imprimirYGuardar } = require('./lib-salida');
 
 function parseArgs(argv) {
   const a = { z: 1.96, p: 0.5, e: 0.05, infinita: false, interactivo: false };
@@ -26,6 +28,7 @@ function parseArgs(argv) {
     else if (arg === '--p') a.p = Number(argv[++i]);
     else if (arg === '--e') a.e = Number(argv[++i]);
     else if (arg === '--estratos') a.estratos = argv[++i];
+    else if (arg === '--salida') a.salida = argv[++i];
     else { console.error(`Argumento no reconocido: ${arg}`); process.exit(2); }
   }
   return a;
@@ -68,13 +71,17 @@ function calcular(a) {
   return { n, nRedondeado: Math.ceil(n), formula };
 }
 
-function imprimirResultado(a, r) {
-  console.log(r.formula.texto);
-  console.log(`  ${r.formula.sustitucion}`);
-  console.log(`  ${r.formula.pasos}`);
-  console.log(`  n = ${r.n.toFixed(2)}`);
-  console.log(`\nTamaño de muestra (redondeado hacia arriba): ${r.nRedondeado}`);
-  console.log('\nReporte sugerido: nivel de confianza según Z usado, margen de error e, p asumida.');
+function lineasResultado(a, r) {
+  return [
+    r.formula.texto,
+    `  ${r.formula.sustitucion}`,
+    `  ${r.formula.pasos}`,
+    `  n = ${r.n.toFixed(2)}`,
+    '',
+    `Tamaño de muestra (redondeado hacia arriba): ${r.nRedondeado}`,
+    '',
+    'Reporte sugerido: nivel de confianza según Z usado, margen de error e, p asumida.',
+  ];
 }
 
 /** Parsea "Ciclo1:40,Ciclo2:35,Ciclo3:45" -> [{nombre:'Ciclo1', N:40}, ...] */
@@ -112,18 +119,24 @@ function afijacionProporcional(estratos, n) {
   return { NTotal, filas };
 }
 
-function imprimirEstratos(estratos, r) {
+function lineasEstratos(estratos, r) {
   const { NTotal, filas } = afijacionProporcional(estratos, r.nRedondeado);
-  console.log(`\nMuestreo estratificado proporcional (afijación proporcional: n_h = n · N_h / N)`);
-  console.log(`N total (suma de estratos) = ${NTotal}`);
-  console.log('\n| Estrato | N_h | Proporción | n_h |');
-  console.log('|---|---|---|---|');
+  const lineas = [
+    '',
+    'Muestreo estratificado proporcional (afijación proporcional: n_h = n · N_h / N)',
+    `N total (suma de estratos) = ${NTotal}`,
+    '',
+    '| Estrato | N_h | Proporción | n_h |',
+    '|---|---|---|---|',
+  ];
   for (const f of filas) {
-    console.log(`| ${f.nombre} | ${f.N} | ${(f.proporcion * 100).toFixed(1)}% | ${f.nh} |`);
+    lineas.push(`| ${f.nombre} | ${f.N} | ${(f.proporcion * 100).toFixed(1)}% | ${f.nh} |`);
   }
   const sumaNh = filas.reduce((acc, f) => acc + f.nh, 0);
-  console.log(`| Total | ${NTotal} | 100.0% | ${sumaNh} |`);
-  console.log(`\n(el último estrato se ajusta para que la suma de n_h coincida exactamente con n = ${r.nRedondeado})`);
+  lineas.push(`| Total | ${NTotal} | 100.0% | ${sumaNh} |`);
+  lineas.push('');
+  lineas.push(`(el último estrato se ajusta para que la suma de n_h coincida exactamente con n = ${r.nRedondeado})`);
+  return lineas;
 }
 
 /**
@@ -189,16 +202,18 @@ async function modoInteractivo() {
 
   validar(a);
   const r = calcular(a);
-  console.log('\n');
-  imprimirResultado(a, r);
-  if (a.estratos) imprimirEstratos(parseEstratos(a.estratos), r);
+  let lineas = lineasResultado(a, r);
+  if (a.estratos) lineas = lineas.concat(lineasEstratos(parseEstratos(a.estratos), r));
+  console.log('');
+  imprimirYGuardar(lineas, a.salida);
 }
 
 function modoFlags(a) {
   validar(a);
   const r = calcular(a);
-  imprimirResultado(a, r);
-  if (a.estratos) imprimirEstratos(parseEstratos(a.estratos), r);
+  let lineas = lineasResultado(a, r);
+  if (a.estratos) lineas = lineas.concat(lineasEstratos(parseEstratos(a.estratos), r));
+  imprimirYGuardar(lineas, a.salida);
 }
 
 function main() {

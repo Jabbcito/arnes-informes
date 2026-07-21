@@ -102,6 +102,28 @@ Ajustes finos que se hacen UNA vez en Word si la universidad lo exige (modificar
 
 Guardar y reutilizar: todos los proyectos del curso usan esta misma plantilla.
 
+## Tablas anchas: orientación horizontal automática (verificado)
+
+Una tabla de 5-6 columnas con celdas de texto largo (operacionalización de variables, matriz de consistencia) en una página vertical de ~15.9 cm útiles queda con columnas demasiado angostas — cada palabra se corta en su propia línea y la tabla se vuelve ilegible. **No basta con poner la tabla en orientación horizontal si además las celdas tienen oraciones completas**: hace falta las dos cosas a la vez.
+
+1. **Sección en horizontal automática vía Pandoc** (no depende de que el alumno recuerde hacerlo a mano en Word): envolver la tabla ancha con dos bloques OOXML crudos, uno antes y otro después, usando `--from markdown+raw_attribute` (mismo mecanismo ya usado para los saltos de página):
+
+   ```
+   ```{=openxml}
+   <w:p><w:pPr><w:sectPr><w:pgSz w:w="12240" w:h="15840"/><w:pgMar w:top="1440" w:right="1440" w:bottom="1440" w:left="1440" w:header="720" w:footer="720" w:gutter="0"/><w:type w:val="nextPage"/></w:sectPr></w:pPr></w:p>
+   ```
+
+   | tabla ancha aquí |
+
+   ```{=openxml}
+   <w:p><w:pPr><w:sectPr><w:pgSz w:w="15840" w:h="12240" w:orient="landscape"/><w:pgMar w:top="1440" w:right="1440" w:bottom="1440" w:left="1440" w:header="720" w:footer="720" w:gutter="0"/><w:type w:val="nextPage"/></w:sectPr></w:pPr></w:p>
+   ```
+   ```
+
+   El primer bloque cierra la sección vertical que venía antes (con las mismas medidas Carta/márgenes de la plantilla); el segundo cierra la sección de la tabla en horizontal (mismas medidas con ancho/alto invertidos y `w:orient="landscape"`). Lo que sigue después vuelve solo a vertical (toma la sección final del documento, que ya es vertical). **Verificado**: exportado con Pandoc y convertido a PDF con LibreOffice, la página de la tabla sale en 792×612pt (horizontal) mientras el resto del documento queda en 612×792pt (vertical) — sin pasos manuales en Word.
+
+2. **La orientación horizontal por sí sola no alcanza si las celdas tienen oraciones largas**: Pandoc reparte las columnas de una tabla Markdown simple en partes iguales, así que una columna con un párrafo sigue envolviendo palabra por palabra aunque haya más ancho disponible. La combinación que sí funciona (verificada): máximo 4-5 columnas, y **celdas con frases cortas, no oraciones** — para "Definición conceptual"/"Definición operacional" (que suelen ser la causa principal del desborde), la definición completa va en prosa antes de la tabla (ya está en Bases teóricas) y la tabla misma no repite esas dos columnas — solo Variable, Dimensiones, Indicadores, Escala. Ver `../../tesis/contenido/metodologia.md` y `../../tesis/contenido/matriz-de-consistencia.md`, que ya siguen este formato.
+
 ## Numeración romana (preliminares) + arábiga (cuerpo)
 
 Pandoc no crea los saltos de sección con numeración distinta — ese acabado se hace **una vez en Word**, al final:
