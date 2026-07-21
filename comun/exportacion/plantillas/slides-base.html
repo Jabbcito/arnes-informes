@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Sustentación de tesis — [TÍTULO CORTO]</title>
+<style>
+  /* ====== Plantilla de sustentación 16:9 — imprimir a PDF desde el navegador ====== */
+  :root {
+    --primario: #1a3a5c;      /* azul institucional — cambiar por el color de tu universidad */
+    --acento:   #c8a24b;
+    --texto:    #222222;
+    --fondo:    #ffffff;
+    --gris:     #f2f4f7;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { background: #555; font-family: "Segoe UI", Arial, sans-serif; color: var(--texto); }
+
+  .slide {
+    width: 1280px;
+    height: 720px;
+    background: var(--fondo);
+    margin: 24px auto;
+    padding: 56px 72px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 18px rgba(0,0,0,.35);
+    page-break-after: always;
+    break-after: page;
+  }
+  .slide::after {              /* franja inferior */
+    content: "";
+    position: absolute; left: 0; bottom: 0;
+    width: 100%; height: 14px;
+    background: linear-gradient(90deg, var(--primario) 70%, var(--acento) 70%);
+  }
+
+  h1 { font-size: 44px; color: var(--primario); line-height: 1.25; }
+  h2 { font-size: 36px; color: var(--primario); margin-bottom: 28px; border-bottom: 3px solid var(--acento); padding-bottom: 10px; }
+  p, li { font-size: 26px; line-height: 1.5; }
+  ul { margin-left: 36px; margin-top: 8px; }
+  li { margin-bottom: 12px; }
+  .subtitulo { font-size: 26px; color: #555; margin-top: 18px; }
+  .centrado { justify-content: center; text-align: center; align-items: center; }
+  .destacado {
+    background: var(--gris); border-left: 8px solid var(--acento);
+    padding: 20px 26px; margin-top: 22px; font-size: 28px;
+  }
+  .cifra { font-size: 64px; font-weight: 700; color: var(--primario); }
+  .dos-columnas { display: flex; gap: 40px; }
+  .dos-columnas > div { flex: 1; }
+
+  table { border-collapse: collapse; margin-top: 18px; width: 100%; }
+  th, td { padding: 10px 16px; font-size: 22px; text-align: left; }
+  thead th { border-top: 3px solid var(--primario); border-bottom: 2px solid var(--primario); }
+  tbody tr:last-child td { border-bottom: 3px solid var(--primario); }
+  /* estilo APA: solo bordes horizontales */
+
+  .pie { position: absolute; bottom: 26px; right: 72px; font-size: 16px; color: #888; }
+
+  /* ====== Impresión a PDF: en el diálogo elegir "Guardar como PDF",
+     tamaño de papel personalizado no hace falta — @page fija el tamaño ====== */
+  @page { size: 1280px 720px; margin: 0; }
+  @media print {
+    html, body { background: #fff; }
+    .slide { margin: 0; box-shadow: none; width: 1280px; height: 720px; }
+    * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ 1. PORTADA ============ -->
+<section class="slide centrado">
+  <p style="font-size:22px; color:#666; letter-spacing:1px;">[UNIVERSIDAD — FACULTAD — ESCUELA]</p>
+  <h1 style="margin-top:28px;">[Título completo de la tesis]</h1>
+  <p class="subtitulo">[Autor(es)] · Asesor: [Nombre] · [Ciudad, año]</p>
+</section>
+
+<!-- ============ 2. PROBLEMA ============ -->
+<section class="slide">
+  <h2>El problema</h2>
+  <ul>
+    <li>[Contexto en una línea, con la cifra más fuerte de la introducción]</li>
+    <li>[Qué está pasando en la población estudiada]</li>
+  </ul>
+  <div class="destacado">[Pregunta general de investigación]</div>
+  <p class="pie">2</p>
+</section>
+
+<!-- ============ 3. OBJETIVOS ============ -->
+<section class="slide">
+  <h2>Objetivos</h2>
+  <p><strong>General:</strong> [objetivo general]</p>
+  <ul>
+    <li>[Objetivo específico 1]</li>
+    <li>[Objetivo específico 2]</li>
+    <li>[Objetivo específico 3]</li>
+  </ul>
+  <p class="pie">3</p>
+</section>
+
+<!-- ============ 4. MÉTODO ============ -->
+<section class="slide">
+  <h2>Método</h2>
+  <div class="dos-columnas">
+    <div>
+      <ul>
+        <li><strong>Tipo/diseño:</strong> [básica, correlacional, no experimental…]</li>
+        <li><strong>Muestra:</strong> [n y cómo se obtuvo]</li>
+      </ul>
+    </div>
+    <div>
+      <ul>
+        <li><strong>Instrumento:</strong> [cuestionario, confiabilidad α=0.XX]</li>
+        <li><strong>Análisis:</strong> [prueba estadística usada y por qué]</li>
+      </ul>
+    </div>
+  </div>
+  <p class="pie">4</p>
+</section>
+
+<!-- ============ 5. RESULTADO CLAVE (uno por slide, máx 2-3 slides) ============ -->
+<section class="slide">
+  <h2>Resultado principal</h2>
+  <p class="cifra">[rho = −0.XXX; p &lt; 0.001]</p>
+  <p>[Qué significa en una frase entendible por cualquiera]</p>
+  <table>
+    <thead><tr><th>[Col 1]</th><th>[Col 2]</th><th>[Col 3]</th></tr></thead>
+    <tbody>
+      <tr><td>[máx 4-5 filas — resumen de la tabla del informe, no la tabla entera]</td><td></td><td></td></tr>
+    </tbody>
+  </table>
+  <p class="pie">5</p>
+</section>
+
+<!-- ============ 6. CONCLUSIÓN ============ -->
+<section class="slide">
+  <h2>Conclusiones</h2>
+  <ul>
+    <li>[Conclusión del objetivo general, con su estadístico]</li>
+    <li>[Conclusión específica más importante]</li>
+  </ul>
+  <div class="destacado">[La idea que quieres que el jurado recuerde]</div>
+  <p class="pie">6</p>
+</section>
+
+<!-- ============ 7. RECOMENDACIONES + CIERRE ============ -->
+<section class="slide">
+  <h2>Recomendaciones</h2>
+  <ul>
+    <li><strong>[Destinatario]:</strong> [recomendación concreta]</li>
+    <li><strong>[Destinatario]:</strong> [recomendación concreta]</li>
+  </ul>
+  <p class="subtitulo" style="margin-top:40px;">Gracias — [Autor(es)]</p>
+  <p class="pie">7</p>
+</section>
+
+</body>
+</html>
