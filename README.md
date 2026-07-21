@@ -20,7 +20,7 @@ AGENTS.md              Reglas no negociables + flujo obligatorio paso a paso
 ROUTING.md              Punto de entrada: qué archivo abrir según la tarea
 CLAUDE.md               Puente para Claude Code (apunta a AGENTS.md/ROUTING.md)
 fuentes-permitidas.md    Bases de datos y repositorios autorizados para citar
-.opencode/skills/        17 skills — cada una cubre un tramo del flujo
+skills/                  17 skills — Markdown plano, misma carpeta para cualquier IA
 comun/
   apa/                   Reglas APA 7 (extraídas de la guía real, no de memoria)
   formulas/               Qué fórmula/prueba corresponde a cada diseño de estudio
@@ -34,6 +34,10 @@ informe/
 ```
 
 `comun/` no es exclusivo de tesis: el mismo formato APA, las mismas fórmulas y el mismo pipeline de exportación sirven igual para un informe o monografía — por eso vive fuera de `tesis/`.
+
+## Multi-herramienta (OpenCode, Claude Code, Codex, o cualquier otro agente)
+
+Nada en este arnés depende del mecanismo propietario de ninguna herramienta (no hay `.opencode/`, `.claude/` ni `.codex/`). `AGENTS.md`, `ROUTING.md` y `skills/*/SKILL.md` son Markdown plano en carpetas de nombre neutro — cualquier agente los lee como documentos de instrucciones siguiendo `ROUTING.md`, que dice exactamente qué abrir para cada paso. Esto es intencional: se prioriza que el arnés funcione igual en cualquier IA por encima de aprovechar el autocompletado nativo `/nombre-skill` que algunas herramientas ofrecen para sus propias carpetas de skills.
 
 ## Requisitos
 

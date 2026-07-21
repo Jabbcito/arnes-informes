@@ -68,13 +68,13 @@ No cargar todo `tesis/contenido/`. Abrir solo el archivo que corresponde a la ta
 
 | Si la tarea es... | Abrir |
 |---|---|
-| Verificar citas (código + APA) | `.opencode/skills/verificar-citas/SKILL.md` |
-| Verificar estructura y formato | `.opencode/skills/verificar-formato/SKILL.md` |
-| Auditoría integral pre-exportación | `.opencode/skills/auditar-tesis/SKILL.md` |
-| Calcular muestra + construir instrumento + gate de alfa de Cronbach | `.opencode/skills/construir-instrumento/SKILL.md` |
-| Exigir el dataset real de la muestra completa antes de Resultados (segundo gate) | `.opencode/skills/recolectar-datos-principales/SKILL.md` |
-| Redactar objetivos con opciones | `.opencode/skills/definir-objetivos/SKILL.md` |
-| Redactar Dedicatoria/Agradecimiento preguntando a quién | `.opencode/skills/redactar-preliminares/SKILL.md` |
+| Verificar citas (código + APA) | `skills/verificar-citas/SKILL.md` |
+| Verificar estructura y formato | `skills/verificar-formato/SKILL.md` |
+| Auditoría integral pre-exportación | `skills/auditar-tesis/SKILL.md` |
+| Calcular muestra + construir instrumento + gate de alfa de Cronbach | `skills/construir-instrumento/SKILL.md` |
+| Exigir el dataset real de la muestra completa antes de Resultados (segundo gate) | `skills/recolectar-datos-principales/SKILL.md` |
+| Redactar objetivos con opciones | `skills/definir-objetivos/SKILL.md` |
+| Redactar Dedicatoria/Agradecimiento preguntando a quién | `skills/redactar-preliminares/SKILL.md` |
 
 ## Exportación
 
@@ -86,7 +86,7 @@ No cargar todo `tesis/contenido/`. Abrir solo el archivo que corresponde a la ta
 
 ## Compatibilidad multi-herramienta
 
-El arnés funciona en OpenCode (lee `AGENTS.md` nativo), Codex (también `AGENTS.md`) y Claude Code (entra por `CLAUDE.md`, que apunta aquí). Las skills son Markdown puro: cualquier agente las abre como instrucciones del paso, tenga o no mecanismo nativo de skills.
+El arnés funciona en OpenCode (lee `AGENTS.md` nativo), Codex (también `AGENTS.md`) y Claude Code (entra por `CLAUDE.md`, que apunta aquí) — y en cualquier otro agente que pueda leer y seguir instrucciones en Markdown. Deliberadamente **no** hay carpetas propietarias (`.opencode/`, `.claude/`, `.codex/`): las skills viven en una sola carpeta neutra, `skills/`, y se abren siguiendo esta tabla, no por un mecanismo de auto-descubrimiento de una herramienta específica.
 
 ## Informe (no-tesis)
 
@@ -94,7 +94,7 @@ El arnés funciona en OpenCode (lee `AGENTS.md` nativo), Codex (también `AGENTS
 
 ## Skills
 
-`.opencode/skills/README.md` — tabla de las 17 skills y qué cubre cada una. Abrir la skill puntual (`.opencode/skills/<nombre>/SKILL.md`) solo cuando se va a ejecutar ese paso.
+`skills/README.md` — tabla de las 17 skills y qué cubre cada una. Abrir la skill puntual (`skills/<nombre>/SKILL.md`) solo cuando se va a ejecutar ese paso.
 
 ## Cómo retomar una sesión
 
@@ -116,7 +116,7 @@ Esto no es un mecanismo nuevo, solo lo hace explícito: es el mismo principio qu
 
 - Completo y validado contra tesis reales: estructura, contenido por sección, fuentes, reglas, APA 7 (de la guía oficial), fórmulas por diseño, scripts probados con datos conocidos y pipeline de exportación verificado (Pandoc: tablas nativas + imágenes incrustadas + TOC).
 - Pendiente: `informe/contenido/` (versión reducida por sección, aún no dividida como la de tesis).
-- Verificado contra la documentación oficial (opencode.ai/docs/skills/): OpenCode carga skills desde `.opencode/skills/<nombre>/SKILL.md` (una carpeta por skill), con frontmatter `name` (debe coincidir con el nombre de la carpeta, patrón `^[a-z0-9]+(-[a-z0-9]+)*$`) y `description`. Las 13 skills del arnés ya están reestructuradas así y sus nombres validados contra el patrón.
+- Verificado contra la documentación oficial (opencode.ai/docs/skills/): OpenCode carga skills desde `skills/<nombre>/SKILL.md` (una carpeta por skill), con frontmatter `name` (debe coincidir con el nombre de la carpeta, patrón `^[a-z0-9]+(-[a-z0-9]+)*$`) y `description`. Las 13 skills del arnés ya están reestructuradas así y sus nombres validados contra el patrón.
 - Verificado con impresión real (Edge headless `--print-to-pdf`, equivalente a Ctrl+P → Guardar como PDF): `comun/exportacion/plantillas/slides-base.html` produce un PDF de 7 páginas, cada una 960×540pt (16:9 exacto, sin cortes ni páginas extra), con texto, acentos y color del título correctos. Pendiente solo un vistazo visual fino (franja de color, sombreados) en un visor de PDF completo — no se pudo confirmar al 100% por límites de la herramienta de captura usada aquí.
 - Verificado con LibreOffice (abre y exporta DOCX de Pandoc sin errores): un documento con salto de sección y numeración diferenciada (`../herramientas/`-independiente; ver `comun/exportacion/exportar-word.md`) exporta a PDF con la página de preliminares mostrando "i" y la primera página del cuerpo mostrando "1" — el mecanismo funciona. Pendiente: reproducir el mismo paso con Word real (esta máquina no lo tiene) para confirmar que el flujo manual en la interfaz de Word coincide.
 - Pendiente de verificar: si `node` queda expuesto en el PATH de la terminal en las versiones de escritorio de OpenCode/Claude Code/Codex (probado solo en máquina de desarrollo con Node ya instalado, no en una instalación limpia de alumno). El chequeo `node --version` (regla 20) hace que esto falle de forma clara y con instrucciones en vez de romperse en silencio, pero no reemplaza la prueba real en una PC nueva.
