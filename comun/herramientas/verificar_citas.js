@@ -37,12 +37,16 @@ function parseArgs(argv) {
 // Apellido con partícula ("de la Cruz", "Del Pozo", "van Dijk") — común en apellidos
 // peruanos/españoles. La partícula puede ir en mayúscula (inicio de una entrada de
 // Referencias, por regla ortográfica) o minúscula (dentro de una cita en el texto).
-// No se soporta apellido compuesto SIN partícula ("Vargas Llosa") a propósito: permitirlo
-// sin partícula hace que el patrón "trague" la palabra anterior en frases como
-// "Según Hinojo (2019)", produciendo falsos positivos peores que el caso sin soportar.
+// Apellido COMPUESTO sin partícula ("Vargas Llosa", "Angarita Becerra", "Pacheco
+// Olguín") también es muy común en español y se soporta (hasta 2 palabras). Para
+// evitar que el patrón "trague" la palabra anterior en frases como "Según Hinojo
+// (2019)", la PRIMERA palabra de un apellido no puede ser una de estas palabras de
+// enlace/preposición habituales antes de una cita narrativa.
+const STOP_INICIO = `(?:Seg[uú]n|Como|Para|Con|Sin|Entre|Desde|Ante|Bajo|Tras|Sobre|Hacia|Durante|Mediante)`;
 const CONECTOR = `(?:[Dd]e\\s+la|[Dd]e\\s+los|[Dd]el|[Dd]e|[Vv]an|[Vv]on)`;
 const PALABRA = `[A-ZÁÉÍÓÚÑ][\\wÁÉÍÓÚÑáéíóúñ'’-]*`;
-const AUTOR_BASE = `(?:${CONECTOR}\\s+${PALABRA}|${PALABRA})`;
+const PALABRA_INICIAL = `(?!${STOP_INICIO}\\b)${PALABRA}`;
+const AUTOR_BASE = `(?:${CONECTOR}\\s+${PALABRA}|${PALABRA_INICIAL}(?:\\s+${PALABRA})?)`;
 const AUTOR_GRUPO = `${AUTOR_BASE}(?:\\s+(?:y|&|et\\s+al\\.?)\\s*(?:${AUTOR_BASE})?)*`;
 const YEAR = `(?:19|20)\\d{2}[a-z]?|s\\.f\\.`;
 const PAGE = `pp?\\.\\s*\\d+(?:\\s*[-–]\\s*\\d+)?`;
@@ -53,7 +57,6 @@ const PARENTETICA = new RegExp(`\\((${AUTOR_GRUPO})\\s*,\\s*(${YEAR})(?:\\s*,\\s
 const NARRATIVA = new RegExp(`\\b(${AUTOR_BASE}(?:\\s+(?:y|&)\\s+${AUTOR_BASE})?(?:\\s+et\\s+al\\.?)?)\\s*\\(\\s*(${YEAR})\\s*(?:,\\s*(${PAGE}))?\\)`, 'g');
 const COMILLAS = /["“”«»]/;
 const AUTOR_BASE_RX = new RegExp(`^(${AUTOR_BASE})`);
-const AUTOR_ANIO_RX = new RegExp(`\\b(${AUTOR_BASE})\\s*(?:,|\\()\\s*(?:19|20)\\d{2}`, 'g');
 
 function normalizar(s) {
   return s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
@@ -62,6 +65,18 @@ function normalizar(s) {
 function primerApellido(autores) {
   const a = autores.trim().split(/\s+(?:y|&|et)\s/)[0];
   return normalizar(a.trim().replace(/,$/, ''));
+}
+
+// Extrae el apellido del PRIMER autor listado en un campo "Autor" de
+// fuentes/investigacion.md, ej. "Rodríguez, A. y Clariana, M." -> "Rodríguez",
+// "Angarita Becerra, L. D." -> "Angarita Becerra", "Pacheco Olguín, M. E.;
+// Armenta Zazueta, L.; ..." -> "Pacheco Olguín". Separado de primerApellido()
+// porque este campo trae iniciales después de una coma que hay que descartar,
+// y puede separar autores con ";" además de "y"/"&".
+function apellidoDesdeCampoAutor(campo) {
+  const primerAutor = campo.trim().split(/\s*(?:;|\by\b|&)\s*/)[0];
+  const apellido = primerAutor.split(',')[0];
+  return normalizar(apellido.trim());
 }
 
 function extraerCitas(texto, inicioRefs) {
@@ -125,14 +140,17 @@ function fuentesVerificadas(ruta) {
   const pendientes = new Set();
   const bloques = txt.split(/\n\s*\n/);
   for (const bloque of bloques) {
-    const apellidos = new Set();
-    let m;
-    AUTOR_ANIO_RX.lastIndex = 0;
-    while ((m = AUTOR_ANIO_RX.exec(bloque)) !== null) apellidos.add(normalizar(m[1]));
+    // Formato real de fuentes/investigacion.md: cada fuente es una lista de
+    // bullets "- **Campo**: valor", con el campo Autor en su propia línea (no
+    // adyacente al Año) — por eso se busca explícitamente esa línea en vez de
+    // asumir que "Autor" y el año quedan uno junto al otro en el texto.
+    const mAutor = bloque.match(/^-\s*\*\*Autor\*\*:\s*(.+)$/im);
+    if (!mAutor) continue;
+    const apellido = apellidoDesdeCampoAutor(mAutor[1]);
     if (/\bVERIFICADA\b/.test(bloque)) {
-      apellidos.forEach((a) => verificadas.add(a));
+      verificadas.add(apellido);
     } else if (/PENDIENTE DE VERIFICAR/i.test(bloque)) {
-      apellidos.forEach((a) => pendientes.add(a));
+      pendientes.add(apellido);
     }
   }
   return { verificadas, pendientes };
