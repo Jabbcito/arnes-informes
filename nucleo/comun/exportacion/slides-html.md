@@ -25,10 +25,13 @@ tema: Presentación de sustentación en HTML y su exportación a PDF
 
 ## Exportar a PDF
 
+**Manual (el alumno, con cualquier navegador):**
 1. Abrir el HTML en Chrome/Edge (doble clic).
 2. Ctrl+P → Destino: **Guardar como PDF**.
 3. Márgenes: **Ninguno** · Activar **Gráficos de fondo**. (El tamaño de página lo fija el `@page` del CSS — no hace falta configurarlo.)
 4. Guardar en `output/entregables/presentacion.pdf`.
+
+**Automático (si el arnés lo hace por el alumno, con Edge o Chrome ya instalados):** `msedge --headless --disable-gpu --print-to-pdf="output/entregables/presentacion.pdf" --no-pdf-header-footer "file:///ruta/completa/al/slides.html"` (usar la ruta completa al ejecutable si `msedge`/`chrome` no están en el PATH, ej. en Windows `"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe"`) — **verificado real**: PDF de 7 páginas generado correctamente, una página por slide, sin recorte.
 
 ## Verificación
 
