@@ -14,7 +14,8 @@ Instalar una sola vez: `winget install --id JohnMacFarlane.Pandoc` (Windows) —
 cd mi-tesis
 pandoc output/trabajo/informe.md \
   --from markdown+raw_attribute \
-  --reference-doc=plantillas/plantilla-apa.docx \
+  --reference-doc=nucleo/comun/exportacion/plantillas/plantilla-apa.docx \
+  --lua-filter=nucleo/comun/exportacion/plantillas/tabla-anchos.lua \
   --toc --toc-depth=3 \
   --resource-path=.:anexos/imagenes \
   -o output/entregables/informe.docx
@@ -22,9 +23,25 @@ pandoc output/trabajo/informe.md \
 
 - `--from markdown+raw_attribute` habilita los saltos de página reales (ver más abajo) — sin esta extensión, el marcador de salto de página se ignora.
 - `--reference-doc` aplica los ESTILOS de la plantilla (no su contenido).
+- `--lua-filter=.../tabla-anchos.lua` corrige el ancho de columnas de **todas** las tablas (ver "Tablas legibles" más abajo) — no omitir este flag, sin él las tablas vuelven a salir con columnas forzadas a partes iguales.
 - `--toc` genera el índice de contenidos como campo de Word (se actualiza con F9 / clic derecho → Actualizar campos). **Esto ya es un índice funcional, no una lista de texto.**
 - `--resource-path` permite que las imágenes de anexos se incrusten.
 - Las tablas Markdown se convierten en **tablas nativas de Word editables** — nunca imágenes.
+
+## Tablas legibles (bug real encontrado y corregido)
+
+Un alumno reportó una tabla de operacionalización ilegible: columnas descuadradas, texto con aspecto de sangría irregular, celdas que parecían centradas/a la derecha según la fila. Causa raíz encontrada inspeccionando el XML del DOCX generado (no era un problema cosmético aislado, afectaba **toda** tabla del documento):
+
+1. **Pandoc reparte el ancho de columnas de una pipe table siempre en partes iguales**, sin importar el contenido — verificado comparando el `<w:tblGrid>` resultante de una tabla con separador `|---|---|` parejo contra uno con dashes muy desiguales: salió idéntico en ambos casos. Una columna corta ("Escala") y una larga ("Dimensiones") terminaban con el mismo ancho, forzando que el texto largo se partiera palabra por palabra.
+2. **Las celdas heredaban el formato de párrafo de cuerpo** (`Compact`, basado en `BodyText`): sangría de primera línea de 1.27 cm + interlineado doble — correcto para un párrafo de cuerpo, pero dentro de una celda angosta la sangría de la primera línea (que las líneas siguientes no tienen, por el wrap forzado del punto 1) es justo lo que se veía como "unas centradas, otras con espacio al inicio".
+3. La plantilla no tenía bordes reales de tabla completa (solo bajo el encabezado), y el encabezado nunca quedaba centrado pese a que la regla APA (`../apa/tablas-figuras-apa.md`) ya lo pedía.
+
+**Corrección verificada** (exportado con Pandoc + convertido a PNG/PDF con LibreOffice, antes/después comparado visualmente con la tabla real del reporte):
+
+- `plantillas/tabla-anchos.lua`: filtro Lua de Pandoc que mide el contenido real de cada columna y fija anchos proporcionales (mínimo 12%, máximo 45% por columna) — funciona con cualquier tabla, sin importar cómo se haya escrito el Markdown.
+- `plantillas/plantilla-apa.docx`: el estilo `Compact` ya no trae sangría de primera línea ni interlineado doble en las celdas (queda sencillo, sin sangría); el estilo de tabla `Table` ahora tiene borde superior e inferior reales (además del ya existente bajo el encabezado) y el encabezado queda centrado de verdad vía formato condicional de tabla (`tblStylePr firstRow`).
+
+Esto no reemplaza la guía de "Tablas anchas" de abajo (5-6+ columnas en orientación horizontal) — son complementarias: el filtro de anchos ayuda en cualquier caso, pero una tabla de más de 4-5 columnas con celdas largas sigue necesitando orientación horizontal y/o reducir columnas.
 
 ## Saltos de página reales (verificado)
 
