@@ -11,35 +11,38 @@ No es un generador de tareas de un solo clic. El agente construye el trabajo sec
    ```bash
    opencode "mi-tesis"
    ```
-3. Empieza la conversación pidiendo ayuda con tu tarea/tesis. El agente lee `AGENTS.md` y `ROUTING.md` automáticamente y, como primer paso, corre `node comun/herramientas/inicializar_proyecto.js` — crea las carpetas de trabajo (ver más abajo) antes de seguir.
+3. Empieza la conversación pidiendo ayuda con tu tarea/tesis. El agente lee `AGENTS.md` y `ROUTING.md` automáticamente y, como primer paso, corre `node nucleo/comun/herramientas/inicializar_proyecto.js` — crea las carpetas de trabajo (ver más abajo) antes de seguir.
 
 ## Estructura
+
+En la raíz de tu copia solo hay 4 archivos `.md` de entrada y dos carpetas: `nucleo/` (el motor del arnés — no se toca) y las carpetas de trabajo que se crean al iniciar (ver más abajo). Todo lo demás vive dentro de `nucleo/`, para que no se mezcle con lo que tú generas:
 
 ```
 AGENTS.md              Reglas no negociables + flujo obligatorio paso a paso
 ROUTING.md              Punto de entrada: qué archivo abrir según la tarea
 CLAUDE.md               Puente para Claude Code (apunta a AGENTS.md/ROUTING.md)
 fuentes-permitidas.md    Bases de datos y repositorios autorizados para citar
-skills/                  17 skills — Markdown plano, misma carpeta para cualquier IA
-comun/
-  apa/                   Reglas APA 7 (extraídas de la guía real, no de memoria)
-  formulas/               Qué fórmula/prueba corresponde a cada diseño de estudio
-  herramientas/            Scripts Node.js: muestra, confiabilidad, descriptivos (categóricos y numéricos), correlación, chi-cuadrado, t de Student, ANOVA, descarga de fuentes, instrumento imprimible, verificación
-  exportacion/             Pipeline Markdown → Word (Pandoc) → PDF, y plantilla de slides (con tablas anchas en horizontal automáticas y referencias con sangría francesa real)
-tesis/
-  contenido/              Un archivo por sección de la tesis
-  estructura-tesis-maestra.md
-informe/
-  estructura-informe-maestra.md   Versión reducida (no-tesis, en desarrollo)
+nucleo/                  El motor del arnés — no se edita, solo lo usan las skills
+  skills/                  17 skills — Markdown plano, misma carpeta para cualquier IA
+  comun/
+    apa/                     Reglas APA 7 (extraídas de la guía real, no de memoria)
+    formulas/                 Qué fórmula/prueba corresponde a cada diseño de estudio
+    herramientas/              Scripts Node.js: muestra, confiabilidad, descriptivos (categóricos y numéricos), correlación, chi-cuadrado, t de Student, ANOVA, descarga de fuentes, instrumento imprimible, verificación
+    exportacion/                Pipeline Markdown → Word (Pandoc) → PDF, y plantilla de slides (con tablas anchas en horizontal automáticas y referencias con sangría francesa real)
+  tesis/
+    contenido/                Un archivo por sección de la tesis
+    estructura-tesis-maestra.md
+  informe/
+    estructura-informe-maestra.md   Versión reducida (no-tesis, en desarrollo)
 ```
 
-`comun/` no es exclusivo de tesis: el mismo formato APA, las mismas fórmulas y el mismo pipeline de exportación sirven igual para un informe o monografía — por eso vive fuera de `tesis/`.
+`nucleo/comun/` no es exclusivo de tesis: el mismo formato APA, las mismas fórmulas y el mismo pipeline de exportación sirven igual para un informe o monografía — por eso vive fuera de `nucleo/tesis/`.
 
 ## Fuentes reales, no resúmenes de buscador
 
-`skills/investigar-fuentes/` no se conforma con lo que un buscador muestra en su resumen: descarga cada fuente candidata con `comun/herramientas/descargar_fuente.js` (a `fuentes/pdfs/`) y exige leer el archivo completo antes de registrar los campos finos (país, diseño, muestra, cifra de resultado) en `fuentes/investigacion.md`. Exige además una cuota mínima de **15 fuentes con ≤5 años de antigüedad** (con una ruta de respaldo documentada: ampliar a 10 años, y si aun así no alcanza, preguntar al alumno cómo seguir) — para que `[EVIDENCIA PENDIENTE]` sea la excepción real, no el resultado por defecto de buscar poco.
+`nucleo/skills/investigar-fuentes/` no se conforma con lo que un buscador muestra en su resumen: descarga cada fuente candidata con `nucleo/comun/herramientas/descargar_fuente.js` (a `fuentes/pdfs/`) y exige leer el archivo completo antes de registrar los campos finos (país, diseño, muestra, cifra de resultado) en `fuentes/investigacion.md`. Exige además una cuota mínima de **15 fuentes con ≤5 años de antigüedad** (con una ruta de respaldo documentada: ampliar a 10 años, y si aun así no alcanza, preguntar al alumno cómo seguir) — para que `[EVIDENCIA PENDIENTE]` sea la excepción real, no el resultado por defecto de buscar poco.
 
-Al iniciar el proyecto (`skills/analizar-rubrica/`), el arnés también pregunta explícitamente los datos de autoría de la tesis (autor(es), carrera, facultad, universidad, asesor, línea de investigación, ciudad) — los mismos que exige la carátula — y los deja en `output/trabajo/brief.md`.
+Al iniciar el proyecto (`nucleo/skills/analizar-rubrica/`), el arnés también pregunta explícitamente los datos de autoría de la tesis (autor(es), carrera, facultad, universidad, asesor, línea de investigación, ciudad) — los mismos que exige la carátula — y los deja en `output/trabajo/brief.md`.
 
 ## Fidelidad de datos: nunca retipear una cifra de memoria
 
@@ -54,22 +57,23 @@ Además de tamaño de muestra, confiabilidad, descriptivos y correlación, el ar
 - **ANOVA de un factor** + eta cuadrado (`anova.js`) — validado contra el dataset `PlantGrowth` de R.
 - **Descriptivos de una variable numérica cruda** (media, mediana, moda, DE, mín/máx) (`descriptivos-numericos.js`).
 
-Pruebas de normalidad exactas, estadísticos basados en rangos (Wilcoxon, Mann-Whitney, Kruskal-Wallis), t pareada, post-hoc de ANOVA y regresiones siguen derivadas a SPSS/Jamovi a propósito — el detalle de por qué está en `comun/herramientas/README.md`.
+Pruebas de normalidad exactas, estadísticos basados en rangos (Wilcoxon, Mann-Whitney, Kruskal-Wallis), t pareada, post-hoc de ANOVA y regresiones siguen derivadas a SPSS/Jamovi a propósito — el detalle de por qué está en `nucleo/comun/herramientas/README.md`.
 
 ## Instrumento imprimible
 
-`comun/herramientas/generar_instrumento_html.js` convierte `output/trabajo/instrumento.md` en una encuesta física lista para imprimir (`output/entregables/instrumento.html`, con encabezado institucional, consentimiento informado y casillas de escala Likert) — para aplicar el piloto real en papel.
+`nucleo/comun/herramientas/generar_instrumento_html.js` convierte `output/trabajo/instrumento.md` en una encuesta física lista para imprimir (`output/entregables/instrumento.html`, con encabezado institucional, consentimiento informado y casillas de escala Likert) — para aplicar el piloto real en papel.
 
 ## Multi-herramienta (OpenCode, Claude Code, Codex, o cualquier otro agente)
 
-Nada en este arnés depende del mecanismo propietario de ninguna herramienta (no hay `.opencode/`, `.claude/` ni `.codex/`). `AGENTS.md`, `ROUTING.md` y `skills/*/SKILL.md` son Markdown plano en carpetas de nombre neutro — cualquier agente los lee como documentos de instrucciones siguiendo `ROUTING.md`, que dice exactamente qué abrir para cada paso. Esto es intencional: se prioriza que el arnés funcione igual en cualquier IA por encima de aprovechar el autocompletado nativo `/nombre-skill` que algunas herramientas ofrecen para sus propias carpetas de skills.
+Nada en este arnés depende del mecanismo propietario de ninguna herramienta (no hay `.opencode/`, `.claude/` ni `.codex/`). `AGENTS.md`, `ROUTING.md` y `nucleo/skills/*/SKILL.md` son Markdown plano en carpetas de nombre neutro — cualquier agente los lee como documentos de instrucciones siguiendo `ROUTING.md`, que dice exactamente qué abrir para cada paso. Esto es intencional: se prioriza que el arnés funcione igual en cualquier IA por encima de aprovechar el autocompletado nativo `/nombre-skill` que algunas herramientas ofrecen para sus propias carpetas de skills.
 
 ## Qué genera el arnés en tu proyecto
 
-Estas carpetas no vienen en la plantilla — el agente las crea todas de una vez, vacías, al primer paso (`comun/herramientas/inicializar_proyecto.js`), y luego las va llenando a medida que trabajas:
+Estas carpetas no vienen en la plantilla — el agente las crea todas de una vez, vacías, al primer paso (`nucleo/comun/herramientas/inicializar_proyecto.js`), y luego las va llenando a medida que trabajas:
 
 ```
 mi-tesis/
+├── nucleo/              # el motor del arnés (ya venía en la plantilla, no se toca)
 ├── insumos/            # lo que TÚ aportas: rúbrica, indicaciones del asesor, lecturas obligatorias
 ├── fuentes/              # fuentes académicas encontradas (PENDIENTE DE VERIFICAR / VERIFICADA)
 │   └── pdfs/               # PDF/HTML descargados de cada fuente, para leerlos completos
@@ -79,12 +83,14 @@ mi-tesis/
     └── entregables/         # DOCX/PDF/slides finales
 ```
 
+Así, al abrir tu carpeta de proyecto en el explorador de archivos, solo ves `nucleo/` (una carpeta) más tus propias carpetas de trabajo — no una decena de carpetas técnicas mezcladas.
+
 Regla dura (27 en `AGENTS.md`): si compartes algo relevante en el chat — pegas el texto de tu rúbrica, describes una foto, mencionas un dato — el agente lo guarda en el archivo correspondiente en el mismo turno, nunca lo deja solo en la conversación. El contexto del chat no sobrevive entre sesiones; los archivos sí.
 
 ## Requisitos
 
-- **Node.js** (LTS) — para los scripts de `comun/herramientas/`. El arnés comprueba `node --version` antes de usarlos y avisa si falta.
-- **Pandoc** — para exportar a Word/PDF (`comun/exportacion/`).
+- **Node.js** (LTS) — para los scripts de `nucleo/comun/herramientas/`. El arnés comprueba `node --version` antes de usarlos y avisa si falta.
+- **Pandoc** — para exportar a Word/PDF (`nucleo/comun/exportacion/`).
 - **LibreOffice** o Microsoft Word — para convertir el DOCX final a PDF y hacer el acabado manual (numeración romana/arábiga, índices).
 
 ## Punto de partida
