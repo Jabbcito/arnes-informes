@@ -140,11 +140,14 @@ function fuentesVerificadas(ruta) {
   const pendientes = new Set();
   const bloques = txt.split(/\n\s*\n/);
   for (const bloque of bloques) {
-    // Formato real de fuentes/investigacion.md: cada fuente es una lista de
-    // bullets "- **Campo**: valor", con el campo Autor en su propia línea (no
-    // adyacente al Año) — por eso se busca explícitamente esa línea en vez de
-    // asumir que "Autor" y el año quedan uno junto al otro en el texto.
-    const mAutor = bloque.match(/^-\s*\*\*Autor\*\*:\s*(.+)$/im);
+    // Formato real de fuentes/investigacion.md: cada fuente trae una línea
+    // "**Campo**: valor" con el campo Autor en su propia línea (no adyacente
+    // al Año) — por eso se busca explícitamente esa línea en vez de asumir
+    // que "Autor" y el año quedan uno junto al otro en el texto. El guion de
+    // lista ("- **Autor**:") es opcional: ninguna skill documenta ese guion
+    // como obligatorio, así que el parser acepta la línea con o sin él en
+    // vez de fallar en silencio cuando falta (bug real encontrado en E2E).
+    const mAutor = bloque.match(/^-?\s*\*\*Autor\*\*:\s*(.+)$/im);
     if (!mAutor) continue;
     const apellido = apellidoDesdeCampoAutor(mAutor[1]);
     if (/\bVERIFICADA\b/.test(bloque)) {
