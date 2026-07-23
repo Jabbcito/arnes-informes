@@ -30,9 +30,15 @@ Complementa a `elegir-diseno.md` (cuál usar) y a los scripts de `../herramienta
 
 Interpretación usual: ≥0.9 excelente · ≥0.8 buena · ≥0.7 aceptable · <0.7 revisar ítems.
 
-**V de Aiken** (cuantificar juicio de expertos):  V = S / (n·(c−1)) — S: suma de valoraciones sobre el mínimo; n: nº de jueces; c: nº de categorías de la escala. Se reporta por ítem y global.
+**Correlación ítem-total corregida**: r de Pearson entre cada ítem y la suma de los demás ítems (sin incluirse a sí mismo). Ítems con r < 0.30 distorsionan la medición y deben revisarse o eliminarse. Ya no se deriva a SPSS: `confiabilidad.js` la calcula e imprime junto al alfa/KR-20 para cada ítem.
 
 → `node ../herramientas/confiabilidad.js piloto.csv`
+
+**V de Aiken** (cuantificar juicio de expertos, validez de contenido — paso previo al piloto, no al mismo tiempo):  V = S / (n·(c−1)) — S: suma de valoraciones sobre el mínimo; n: nº de jueces; c: nº de categorías de la escala (típicamente 1-4: Claridad/Relevancia/Pertinencia). Se reporta por ítem y global. Umbral estándar: V ≥ 0.80.
+
+→ `node ../herramientas/validez-contenido.js juicio-expertos.csv`
+
+**Análisis Factorial Exploratorio (AFE)** (validez de constructo, opcional): recomendado en estudios explicativos/correlacionales complejos con muchos ítems, para confirmar que los ítems se agrupan estadísticamente en las dimensiones planificadas. No se implementa en el arnés — igual que normalidad, pruebas de rangos, post-hoc y regresiones (ver `../herramientas/README.md`, "Límite honesto"), un bug silencioso en una implementación propia de AFE es más caro que no tenerlo. Se corre en SPSS/Jamovi/R y se reportan cargas factoriales, KMO y prueba de Bartlett.
 
 ## Normalidad
 

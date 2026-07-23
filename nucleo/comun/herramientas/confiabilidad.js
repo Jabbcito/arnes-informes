@@ -11,11 +11,13 @@
  *   node confiabilidad.js piloto.csv --sin-encabezado
  *   node confiabilidad.js piloto.csv --salida output/trabajo/calculo-alfa.md
  *
- * Imprime varianzas por ítem y el cálculo paso a paso. Sin dependencias externas.
+ * Imprime varianzas por ítem, el cálculo paso a paso y la correlación
+ * ítem-total corregida de cada ítem (r < 0.30 → revisar/eliminar). Sin
+ * dependencias externas.
  */
 'use strict';
 const { readCsv } = require('./lib-csv');
-const { varianceSample } = require('./lib-stats');
+const { varianceSample, pearson } = require('./lib-stats');
 const { imprimirYGuardar } = require('./lib-salida');
 
 function parseArgs(argv) {
@@ -86,6 +88,19 @@ function kr20(datos) {
   return { coef, k, pq, varTotal, sumPq };
 }
 
+// Correlación ítem-total corregida: para cada ítem, correlación de Pearson
+// entre ese ítem y el total de los DEMÁS ítems (sin incluirse a sí mismo,
+// para no inflar artificialmente la correlación de cada ítem con su propio
+// aporte al total).
+function correlacionItemTotal(datos) {
+  const k = datos[0].length;
+  const items = columnas(datos);
+  return items.map((col, j) => {
+    const totalSinItem = datos.map((f) => f.reduce((acc, v, i) => (i === j ? acc : acc + v), 0));
+    return pearson(col, totalSinItem);
+  });
+}
+
 function interpretar(v) {
   if (v >= 0.9) return 'excelente';
   if (v >= 0.8) return 'buena';
@@ -116,6 +131,20 @@ function main() {
 
   lineas.push('');
   lineas.push(`${nombre} = ${coef.toFixed(3)}  → confiabilidad ${interpretar(coef)}`);
+
+  const itemTotal = correlacionItemTotal(datos);
+  lineas.push('');
+  lineas.push('Correlación ítem-total corregida (r de Pearson entre cada ítem y el total de los demás):');
+  const debiles = [];
+  itemTotal.forEach((r, i) => {
+    const marca = r < 0.3 ? '  ← revisar/eliminar (r < 0.30)' : '';
+    if (r < 0.3) debiles.push(i + 1);
+    lineas.push(`  Ítem ${i + 1}: r = ${r.toFixed(3)}${marca}`);
+  });
+  if (debiles.length > 0) {
+    lineas.push(`Ítems con correlación ítem-total débil (r < 0.30): ${debiles.join(', ')} — distorsionan la medición, revisar redacción o eliminar y repetir el piloto.`);
+  }
+
   lineas.push('');
   lineas.push('Nota: cálculo con varianza muestral (n-1), igual que SPSS. Contrasta con SPSS si tu asesor lo exige.');
   imprimirYGuardar(lineas, a.salida);

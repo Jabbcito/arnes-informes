@@ -1,11 +1,21 @@
 #!/usr/bin/env node
 /**
- * Genera una versión HTML autocontenida e imprimible (formato de encuesta
- * física) a partir de output/trabajo/instrumento.md, para que el alumno la
- * imprima (Ctrl+P -> Guardar como PDF) y aplique el piloto en papel.
+ * Genera una versión HTML autocontenida e imprimible a partir de
+ * output/trabajo/instrumento.md. Dos modos:
+ *
+ *   1) Encuesta física (por defecto): casillas 1-5 para que el alumno la
+ *      imprima y aplique el piloto en papel.
+ *   2) Ficha de validación por juicio de expertos (--ficha-experto): los
+ *      mismos ítems reales, pero con columnas EN BLANCO de Claridad /
+ *      Relevancia / Pertinencia + observaciones, para que la llene un juez
+ *      real (asesor u otro experto). Este script NUNCA genera calificaciones
+ *      — solo la estructura vacía; las calificaciones las pone el juez a
+ *      mano, y el alumno las transcribe después a un CSV real (regla de
+ *      fidelidad de datos de AGENTS.md: nunca inventar resultados).
  *
  * Uso:
  *   node generar_instrumento_html.js output/trabajo/instrumento.md --salida output/entregables/instrumento.html
+ *   node generar_instrumento_html.js output/trabajo/instrumento.md --salida output/entregables/ficha-experto.html --ficha-experto
  *   node generar_instrumento_html.js output/trabajo/instrumento.md --salida output/entregables/instrumento.html \
  *     --universidad "Universidad X" --carrera "Ingeniería de Sistemas" --autor "Nombre Apellido"
  *
@@ -28,11 +38,12 @@ function parseArgs(argv) {
     else if (arg === '--carrera') a.carrera = argv[++i];
     else if (arg === '--autor') a.autor = argv[++i];
     else if (arg === '--titulo') a.titulo = argv[++i];
+    else if (arg === '--ficha-experto') a.fichaExperto = true;
     else if (!a.entrada) a.entrada = arg;
     else { console.error(`Argumento no reconocido: ${arg}`); process.exit(2); }
   }
   if (!a.entrada) {
-    console.error('Uso: node generar_instrumento_html.js <instrumento.md> [--salida <ruta.html>] [--universidad ..] [--carrera ..] [--autor ..] [--titulo ..]');
+    console.error('Uso: node generar_instrumento_html.js <instrumento.md> [--salida <ruta.html>] [--ficha-experto] [--universidad ..] [--carrera ..] [--autor ..] [--titulo ..]');
     process.exit(2);
   }
   if (!a.salida) {
@@ -84,14 +95,7 @@ function parseInstrumento(texto) {
   return { titulo, notaEscala, secciones: secciones.filter((s) => s.items.length > 0) };
 }
 
-function construirHtml({ titulo, notaEscala, secciones }, opts) {
-  const tituloFinal = escaparHtml(opts.titulo || titulo || 'Instrumento de recolección de datos');
-  const universidad = escaparHtml(opts.universidad || '[Universidad]');
-  const carrera = escaparHtml(opts.carrera || '[Carrera / Escuela profesional]');
-  const autor = escaparHtml(opts.autor || '[Autor(es) de la tesis]');
-  const fecha = new Date().toLocaleDateString('es-PE', { year: 'numeric', month: 'long', day: 'numeric' });
-  const escala = escaparHtml(notaEscala || 'Marca con una X la opción que mejor te representa.');
-
+function construirCuerpoEncuesta(secciones) {
   let cuerpo = '';
   let contador = 0;
   for (const sec of secciones) {
@@ -107,10 +111,70 @@ function construirHtml({ titulo, notaEscala, secciones }, opts) {
     }
     cuerpo += `</tbody>\n</table>\n`;
   }
+  return { cuerpo, contador };
+}
+
+// Ficha de juicio de expertos: los mismos ítems reales del instrumento, con
+// columnas EN BLANCO de Claridad / Relevancia / Pertinencia (escala 1-4,
+// formato estándar V de Aiken) + observaciones — el juez las llena a mano.
+// No se genera ningún valor de calificación.
+function construirCuerpoFichaExperto(secciones) {
+  let cuerpo = '';
+  let contador = 0;
+  for (const sec of secciones) {
+    cuerpo += `<h2>${escaparHtml(sec.nombre)}</h2>\n<table class="items">\n`;
+    cuerpo += `<thead><tr><th class="col-n">N°</th><th class="col-item">Ítem</th>`;
+    cuerpo += `<th class="col-criterio">Claridad<br><span class="escala-mini">1-4</span></th>`;
+    cuerpo += `<th class="col-criterio">Relevancia<br><span class="escala-mini">1-4</span></th>`;
+    cuerpo += `<th class="col-criterio">Pertinencia<br><span class="escala-mini">1-4</span></th>`;
+    cuerpo += `<th class="col-obs">Observaciones / sugerencia de mejora</th></tr></thead>\n<tbody>\n`;
+    for (const it of sec.items) {
+      contador += 1;
+      cuerpo += `<tr><td class="col-n">${contador}</td><td class="col-item">${escaparHtml(it.item)}</td>`;
+      cuerpo += `<td class="celda-vacia"></td><td class="celda-vacia"></td><td class="celda-vacia"></td>`;
+      cuerpo += `<td class="celda-obs"></td></tr>\n`;
+    }
+    cuerpo += `</tbody>\n</table>\n`;
+  }
+  return { cuerpo, contador };
+}
+
+function construirHtml({ titulo, notaEscala, secciones }, opts) {
+  const fichaExperto = !!opts.fichaExperto;
+  const tituloBase = fichaExperto
+    ? `Ficha de validación por juicio de expertos — ${titulo || 'Instrumento de recolección de datos'}`
+    : (titulo || 'Instrumento de recolección de datos');
+  const tituloFinal = escaparHtml(opts.titulo || tituloBase);
+  const universidad = escaparHtml(opts.universidad || '[Universidad]');
+  const carrera = escaparHtml(opts.carrera || '[Carrera / Escuela profesional]');
+  const autor = escaparHtml(opts.autor || '[Autor(es) de la tesis]');
+  const fecha = new Date().toLocaleDateString('es-PE', { year: 'numeric', month: 'long', day: 'numeric' });
+  const escala = escaparHtml(notaEscala || 'Marca con una X la opción que mejor te representa.');
+
+  const { cuerpo, contador } = fichaExperto
+    ? construirCuerpoFichaExperto(secciones)
+    : construirCuerpoEncuesta(secciones);
 
   if (contador === 0) {
     console.error('ADVERTENCIA: no se encontró ningún ítem en el instrumento.md — revisa el formato de las tablas.');
   }
+
+  const notaSuperior = fichaExperto
+    ? `<div class="consentimiento">
+  <strong>Ficha de validación por juicio de expertos.</strong> Estimado(a) juez, se solicita su evaluación de cada ítem del instrumento adjunto según los criterios de Claridad (se entiende sin ambigüedad), Relevancia (es esencial para medir el indicador) y Pertinencia (corresponde a la variable/dimensión), en una escala de 1 (no cumple) a 4 (cumple en alto grado). Sus observaciones escritas serán usadas para mejorar la redacción de los ítems antes de aplicar el instrumento.
+</div>
+<div class="datos-juez">
+  <p>Nombre y apellidos del juez: ___________________________________________________</p>
+  <p>Grado académico: _______________________________  Especialidad: _______________________________</p>
+  <p>Firma: ___________________________________  Fecha: ${fecha}</p>
+</div>`
+    : `<div class="consentimiento">
+  <strong>Consentimiento informado.</strong> Este cuestionario es parte de un trabajo de investigación académica.
+  Tu participación es voluntaria y anónima; la información se usará únicamente con fines académicos.
+  Al completarlo, aceptas participar en este estudio.
+</div>
+
+<p class="escala-nota">${escala}</p>`;
 
   return `<!DOCTYPE html>
 <html lang="es">
@@ -126,6 +190,7 @@ function construirHtml({ titulo, notaEscala, secciones }, opts) {
   header h1 { font-size: 22px; color: var(--primario); margin-top: 8px; line-height: 1.3; }
   header .carrera { font-size: 14px; color: #555; margin-top: 4px; }
   .consentimiento { background: var(--gris); border-left: 6px solid var(--primario); padding: 14px 18px; font-size: 13px; margin-bottom: 20px; line-height: 1.5; }
+  .datos-juez { font-size: 13px; margin-bottom: 20px; line-height: 2; }
   .escala-nota { font-size: 13px; margin-bottom: 20px; font-style: italic; }
   h2 { font-size: 16px; color: var(--primario); margin: 22px 0 10px; border-bottom: 1px solid #ccc; padding-bottom: 4px; }
   table.items { border-collapse: collapse; width: 100%; font-size: 13px; margin-bottom: 10px; }
@@ -134,6 +199,11 @@ function construirHtml({ titulo, notaEscala, secciones }, opts) {
   .col-item { width: auto; }
   .col-escala { text-align: center; font-size: 11px; color: #555; letter-spacing: 2px; }
   .casilla { text-align: center; font-size: 16px; width: 22px; }
+  .col-criterio { width: 70px; text-align: center; font-size: 11px; }
+  .escala-mini { font-weight: normal; color: #777; }
+  .celda-vacia { width: 70px; border: 1px solid #ccc; }
+  .col-obs { width: 200px; }
+  .celda-obs { border: 1px solid #ccc; height: 28px; }
   footer { margin-top: 30px; font-size: 11px; color: #888; text-align: right; }
   @media print {
     body { padding: 20px 30px; }
@@ -148,13 +218,7 @@ function construirHtml({ titulo, notaEscala, secciones }, opts) {
   <div class="carrera">${carrera} — ${autor}</div>
 </header>
 
-<div class="consentimiento">
-  <strong>Consentimiento informado.</strong> Este cuestionario es parte de un trabajo de investigación académica.
-  Tu participación es voluntaria y anónima; la información se usará únicamente con fines académicos.
-  Al completarlo, aceptas participar en este estudio.
-</div>
-
-<p class="escala-nota">${escala}</p>
+${notaSuperior}
 
 ${cuerpo}
 
@@ -181,7 +245,11 @@ function main() {
   fs.writeFileSync(a.salida, html, 'utf8');
   const totalItems = parsed.secciones.reduce((acc, s) => acc + s.items.length, 0);
   console.log(`Generado: ${a.salida} (${parsed.secciones.length} secciones, ${totalItems} ítems)`);
-  console.log('Ábrelo en el navegador e imprime (Ctrl+P -> Guardar como PDF, márgenes por defecto) para aplicar el piloto en papel.');
+  if (a.fichaExperto) {
+    console.log('Ábrelo en el navegador e imprime (Ctrl+P -> Guardar como PDF) una copia por cada juez (mínimo 3, recomendado 3-5, incluyendo al asesor). Ningún dato de calificación se generó aquí: el juez la llena a mano y luego transcribes sus calificaciones reales a un CSV para node validez-contenido.js.');
+  } else {
+    console.log('Ábrelo en el navegador e imprime (Ctrl+P -> Guardar como PDF, márgenes por defecto) para aplicar el piloto en papel.');
+  }
 }
 
 main();

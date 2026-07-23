@@ -18,6 +18,20 @@ function standardDeviation(xs) {
   return Math.sqrt(varianceSample(xs));
 }
 
+// Correlación de Pearson entre dos vectores numéricos de igual longitud.
+function pearson(xs, ys) {
+  const n = xs.length;
+  const mx = xs.reduce((a, b) => a + b, 0) / n;
+  const my = ys.reduce((a, b) => a + b, 0) / n;
+  let sxy = 0, sxx = 0, syy = 0;
+  for (let i = 0; i < n; i++) {
+    sxy += (xs[i] - mx) * (ys[i] - my);
+    sxx += (xs[i] - mx) ** 2;
+    syy += (ys[i] - my) ** 2;
+  }
+  return sxy / Math.sqrt(sxx * syy);
+}
+
 function median(xs) {
   const ys = [...xs].sort((a, b) => a - b);
   const n = ys.length;
@@ -145,4 +159,4 @@ function pChiCuadrado(x2, gl) {
   return 1 - gammaP(gl / 2.0, x2 / 2.0);
 }
 
-module.exports = { mean, varianceSample, standardDeviation, median, mode, pBilateralT, pF, pChiCuadrado };
+module.exports = { mean, varianceSample, standardDeviation, pearson, median, mode, pBilateralT, pF, pChiCuadrado };

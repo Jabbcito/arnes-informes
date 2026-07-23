@@ -17,7 +17,7 @@
  */
 'use strict';
 const { readCsvObjects } = require('./lib-csv');
-const { pBilateralT } = require('./lib-stats');
+const { pBilateralT, pearson } = require('./lib-stats');
 const { imprimirYGuardar } = require('./lib-salida');
 
 function parseArgs(argv) {
@@ -35,19 +35,6 @@ function parseArgs(argv) {
     process.exit(2);
   }
   return a;
-}
-
-function pearson(xs, ys) {
-  const n = xs.length;
-  const mx = xs.reduce((a, b) => a + b, 0) / n;
-  const my = ys.reduce((a, b) => a + b, 0) / n;
-  let sxy = 0, sxx = 0, syy = 0;
-  for (let i = 0; i < n; i++) {
-    sxy += (xs[i] - mx) * (ys[i] - my);
-    sxx += (xs[i] - mx) ** 2;
-    syy += (ys[i] - my) ** 2;
-  }
-  return sxy / Math.sqrt(sxx * syy);
 }
 
 function rangos(v) {

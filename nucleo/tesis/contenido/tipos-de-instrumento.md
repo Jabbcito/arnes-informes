@@ -26,8 +26,8 @@ No todo estudio se mide con una encuesta de escala Likert. El instrumento correc
 
 ## Qué cambia en la secuencia según el tipo
 
-- **Cuestionario/prueba (Likert o dicotómico)**: sigue la secuencia completa de `instrumento-y-muestra.md` tal cual — muestra → ítems → piloto → alfa/KR-20 ≥0.70.
-- **Ficha de observación / lista de cotejo**: misma secuencia, pero el piloto se aplica observando/verificando casos reales (no encuestando), y el coeficiente es KR-20 si es dicotómica.
+- **Cuestionario/prueba (Likert o dicotómico)**: sigue la secuencia completa de `instrumento-y-muestra.md` tal cual — muestra → ítems → juicio de expertos (V de Aiken ≥0.80) → piloto → alfa/KR-20 ≥0.70.
+- **Ficha de observación / lista de cotejo**: misma secuencia (incluye juicio de expertos), pero el piloto se aplica observando/verificando casos reales (no encuestando), y el coeficiente es KR-20 si es dicotómica.
 - **Ficha documental**: no hay muestra probabilística ni piloto de confiabilidad numérica — el "instrumento" se valida asegurando que los criterios de inclusión/exclusión estén bien definidos y sean aplicables sin ambigüedad (ver `../../comun/formulas/elegir-diseno.md`, caso documental). El gate de este caso es que la matriz de registro esté completa con datos reales de los documentos, no con un alfa.
 - **Guía de entrevista/focus group**: tampoco hay alfa de Cronbach — la "validación" habitual es el juicio de expertos (cuantificable con V de Aiken) y, si el alumno lo hace, una prueba piloto de la guía con 1-2 entrevistas para ajustar preguntas confusas, sin cálculo de confiabilidad numérica.
 
