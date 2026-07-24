@@ -2,7 +2,15 @@
 
 **Regla central (regla 17 de `../../../AGENTS.md`): la IA nunca hace aritmética estadística "de cabeza".** Todo cálculo se ejecuta con estos scripts (o con SPSS/Jamovi del alumno) y se reporta la salida literal. Los scripts imprimen la fórmula con los valores sustituidos para que el alumno pueda explicar el cálculo en la sustentación.
 
-Requisito: **Node.js** en el PATH de la terminal (sin instalar nada más — `lib-csv.js` y `lib-stats.js` son módulos propios, cero dependencias externas). Se eligió Node y no Python para no depender de si el alumno tiene Python instalado.
+Requisito: **Node.js** en el PATH de la terminal. La mayoría de los scripts no necesitan nada más (`lib-csv.js` y `lib-stats.js` son módulos propios, cero dependencias externas). Se eligió Node y no Python para no depender de si el alumno tiene Python instalado.
+
+**Excepción (regla 30 de `../../../AGENTS.md`):** `descargar_fuente.js` (extracción de texto de PDF con `pdf-parse`) y `generar_slides_pptx.js` (generación de PowerPoint real con `pptxgenjs`) sí usan dos librerías npm maduras y de código abierto — se evaluaron primero alternativas propias y no había ganancia real en reinventarlas (ver el artefacto de auditoría comparativa de la v16). Antes de usarlos por primera vez en un proyecto, correr una vez en la raíz:
+
+```
+npm install
+```
+
+El resto del arnés sigue funcionando igual sin ese paso.
 
 ## Verificación previa obligatoria (regla 20 de `../../../AGENTS.md`)
 
@@ -48,10 +56,13 @@ Formato de los CSV: encabezado en la primera fila; cada fila un caso; separador 
 
 | Script | Qué hace | Ejemplo |
 |---|---|---|
-| `descargar_fuente.js` | Descarga una fuente (PDF/HTML) a disco para leerla completa, no solo su resumen de buscador | `node descargar_fuente.js <url> --salida fuentes/pdfs/nombre` |
+| `buscar_fuentes.js` | Busca fuentes académicas reales en OpenAlex (250M+ trabajos, gratis, sin clave) — autor/año/DOI/revista reales + enlace directo al PDF de acceso abierto cuando existe | `node buscar_fuentes.js "procrastinacion academica" --desde 2020 --limite 10` |
+| `verificar_doi.js` | Confirma que un DOI existe de verdad y trae sus metadatos reales desde CrossRef — chequeo de refuerzo antes de marcar una fuente `VERIFICADA` | `node verificar_doi.js 10.1234/ejemplo.2020.001` |
+| `descargar_fuente.js` | Descarga una fuente (PDF/HTML) a disco. Si es PDF, extrae el texto real a un `.txt` hermano con `pdf-parse` — la lectura completa deja de depender de si la IA sabe abrir PDF nativamente | `node descargar_fuente.js <url> --salida fuentes/pdfs/nombre` |
 | `generar_instrumento_html.js` | Genera una versión HTML imprimible del instrumento (`instrumento.md` → encuesta física con casillas), o con `--ficha-experto` la ficha de validación en blanco para jueces reales (ítems reales, columnas de Claridad/Relevancia/Pertinencia vacías — nunca genera calificaciones) | `node generar_instrumento_html.js output/trabajo/instrumento.md --salida output/entregables/instrumento.html --universidad "..." --carrera "..." --autor "..."` · `--ficha-experto` |
+| `generar_slides_pptx.js` | Genera un `.pptx` real y editable desde la presentación HTML ya revisada, con `pptxgenjs` | `node generar_slides_pptx.js output/entregables/presentacion.html --salida output/entregables/presentacion.pptx` |
 
-Ambos devuelven código de salida 1 si hay problemas (útil para la skill `auditar-tesis`).
+`descargar_fuente.js` y `generar_instrumento_html.js` devuelven código de salida 1 si hay problemas (útil para la skill `auditar-tesis`).
 
 ## Inicialización del proyecto
 
@@ -67,3 +78,4 @@ Se corre una sola vez al empezar un proyecto (ver "Primer paso, siempre" en `../
 - `verificar_citas.js` puede dar un falso positivo cuando la preposición "de" precede a una cita narrativa por razones puramente gramaticales (ej. "consistente con el antecedente de Muñoz-Vargas et al. (2025)") — el script no puede distinguir esa "de" de un apellido real con partícula ("de la Cruz", "de Souza"), así que la trata como parte del apellido y no encuentra coincidencia. Es un caso genuinamente ambiguo en español: no se corrige con una regex más agresiva porque eso rompería la detección real de apellidos con partícula. Solución práctica: redactar la cita narrativa sin anteponer "de" ("consistente con lo reportado por Muñoz-Vargas et al. (2025)"), o revisar a mano ese aviso puntual en el reporte.
 - Para estadística que exige software especializado y **sigue derivada a SPSS/Jamovi a propósito**: pruebas de normalidad exactas (Shapiro-Wilk, Kolmogórov-Smirnov), pruebas basadas en rangos (Wilcoxon, U de Mann-Whitney, Kruskal-Wallis), t de Student pareada, comparaciones post-hoc de ANOVA (Tukey, Bonferroni), regresiones, y **Análisis Factorial Exploratorio** (validez de constructo, opcional para diseños complejos — ver `../formulas/formulas-referencia.md`). La razón no es que sean "más difíciles" matemáticamente que lo que ya está en código — es que un error de implementación en una prueba basada en rangos, en una aproximación de normalidad o en una extracción factorial es mucho más difícil de detectar a simple vista que un error en un chi-cuadrado o una t; el costo de un bug silencioso ahí supera el beneficio de tenerlas en código propio. `../formulas/elegir-diseno.md` indica qué corresponde a cada diseño.
 - Los scripts que sí calculan (`muestra.js`, `validez-contenido.js`, `confiabilidad.js`, `correlacion.js`, `chi-cuadrado.js`, `prueba-t.js`, `anova.js`, `descriptivos-numericos.js`) fueron probados contra ejemplos con resultado exactamente conocido: tamaño de muestra contra la fórmula clásica; V de Aiken verificado a mano (ítem con calificaciones [4,4,3]/[2,2,2]/[4,3,4] entre 3 jueces → V=0.889/0.333/0.889); alfa de Cronbach y correlación ítem-total verificados a mano (esta última también contrastada con un cálculo de Pearson independiente); Spearman/Pearson exactos en datos monotónicos; chi-cuadrado contra un ejemplo de manual (χ²=16.667, gl=1); t de Welch contra el dataset `sleep` de R (t=-1.861, gl=17.78, medias exactas); ANOVA contra el dataset `PlantGrowth` de R (F=4.846, p=0.0159, exacto); descriptivos numéricos contra un cálculo a mano. Los verificadores de citas/estructura se probaron contra un informe con errores sembrados y los detectaron todos. Ante cualquier discrepancia con SPSS, manda SPSS y se reporta la diferencia al docente.
+- `buscar_fuentes.js` y `verificar_doi.js` (v16) se probaron contra la API real de OpenAlex/CrossRef con una búsqueda real ("procrastinación académica universitarios"): el DOI devuelto por OpenAlex se verificó de vuelta con `verificar_doi.js` contra CrossRef y los metadatos coincidieron exactamente. `descargar_fuente.js` con extracción de PDF se probó contra un PDF real de acceso abierto (21,363 caracteres extraídos correctamente). `generar_slides_pptx.js` se probó generando un `.pptx` de 7 diapositivas y confirmando visualmente (exportado a PDF/PNG con LibreOffice) que título, viñetas con negrita parcial, cifra destacada, callout y tabla con encabezado en negrita salen correctos, con los colores `--primario`/`--acento` de la plantilla.

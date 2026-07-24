@@ -1,0 +1,9 @@
+{
+  "name": "arnes-informes",
+  "private": true,
+  "description": "Dependencias npm del arnes-informes (comun/herramientas). El resto del arnés no requiere instalación: los scripts se corren directo con 'node archivo.js'. Estas dos dependencias solo las usan descargar_fuente.js (pdf-parse) y generar_slides_pptx.js (pptxgenjs).",
+  "dependencies": {
+    "pdf-parse": "^2.4.5",
+    "pptxgenjs": "^4.0.1"
+  }
+}

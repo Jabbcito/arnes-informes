@@ -10,6 +10,8 @@ Ninguna fuente entra al informe solo por estar en esta lista: además debe pasar
 
 | Fuente | URL | Tipo |
 |---|---|---|
+| OpenAlex | https://openalex.org | 250M+ trabajos, gratis, sin clave — consultado por código vía `node nucleo/comun/herramientas/buscar_fuentes.js` (metadatos estructurados + enlace directo a PDF de acceso abierto, en vez de raspar una página de resultados) |
+| CrossRef | https://www.crossref.org | 150M+ trabajos, gratis, sin clave — consultado por código vía `node nucleo/comun/herramientas/verificar_doi.js` como chequeo de refuerzo de que un DOI existe de verdad |
 | Google Scholar | https://scholar.google.com | Buscador académico general |
 | SciELO | https://scielo.org | Revistas científicas de acceso abierto |
 | Redalyc | https://www.redalyc.org | Revistas científicas de acceso abierto |

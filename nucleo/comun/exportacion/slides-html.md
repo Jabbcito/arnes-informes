@@ -33,10 +33,14 @@ tema: Presentación de sustentación en HTML y su exportación a PDF
 
 **Automático (si el arnés lo hace por el alumno, con Edge o Chrome ya instalados):** `msedge --headless --disable-gpu --print-to-pdf="output/entregables/presentacion.pdf" --no-pdf-header-footer "file:///ruta/completa/al/slides.html"` (usar la ruta completa al ejecutable si `msedge`/`chrome` no están en el PATH, ej. en Windows `"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe"`) — **verificado real**: PDF de 7 páginas generado correctamente, una página por slide, sin recorte.
 
+## Exportar a PPTX real
+
+`node nucleo/comun/herramientas/generar_slides_pptx.js output/entregables/presentacion.html --salida output/entregables/presentacion.pptx` — usa `pptxgenjs` (`npm install` una vez en la raíz, ver `AGENTS.md` regla 30) para generar un `.pptx` real y editable, parseando el HTML ya revisado (no `slides.md`, para que nunca diverja de lo aprobado): título, viñetas, cifra destacada, callout y tablas, con los mismos colores `--primario`/`--acento` del CSS. **Verificado real**: 7 diapositivas generadas correctamente (título centrado, viñetas con negrita parcial, callout con borde de acento, cifra grande, tabla con encabezado en negrita), confirmado visualmente exportando el `.pptx` a PDF con LibreOffice. El layout es una aproximación editable, no un calco pixel a pixel — sirve para terminar de ajustar en PowerPoint, no para entregar sin revisar.
+
 ## Verificación
 
 - [ ] Cada slide ocupa exactamente una página del PDF (sin cortes ni páginas en blanco).
 - [ ] Colores y franja inferior visibles (si salen en blanco: faltó "Gráficos de fondo").
 - [ ] Texto legible proyectado: fuente mínima ~22px en el HTML.
 - [ ] Ningún marcador `[...]` de la plantilla quedó sin reemplazar.
-- [ ] PPTX (opcional avanzado): importar el PDF en PowerPoint/Slides o rehacer sobre plantilla de la universidad; revisión visual obligatoria.
+- [ ] PPTX: abrir `presentacion.pptx` en PowerPoint/Impress y revisar visualmente (colores, cortes de texto, tablas) antes de entregar — no es opcional.

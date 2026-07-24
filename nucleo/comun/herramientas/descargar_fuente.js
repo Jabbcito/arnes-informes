@@ -1,8 +1,10 @@
 #!/usr/bin/env node
 /**
- * Descarga una fuente (PDF o HTML) a disco para que el agente la lea completa
- * con su propia herramienta de lectura de archivos, en vez de citar solo el
- * resumen que devuelve un buscador.
+ * Descarga una fuente (PDF o HTML) a disco. Si es PDF, además extrae el
+ * texto real con pdf-parse a un .txt hermano — así la lectura completa
+ * NUNCA depende de si la herramienta de IA del alumno (OpenCode/Claude
+ * Code/Codex) sabe abrir PDF de forma nativa o no; siempre hay un .txt
+ * plano garantizado para leer.
  *
  * Uso:
  *   node descargar_fuente.js <url> --salida fuentes/pdfs/nombre.pdf
@@ -11,7 +13,10 @@
  * Sigue hasta 3 redirecciones. Detecta la extensión por el header
  * Content-Type (application/pdf -> .pdf, text/html -> .html); si no hay
  * header útil, usa la extensión de la URL o guarda como .html por defecto.
- * Sin dependencias externas (solo https/http nativos de Node).
+ * La descarga en sí no tiene dependencias externas (solo https/http nativos
+ * de Node); la extracción de texto de PDF usa `pdf-parse` (requiere haber
+ * corrido `npm install` una vez en la raíz del proyecto — ver
+ * `../../../AGENTS.md`, regla 30).
  *
  * Si el sitio bloquea el acceso automatizado (403/anti-bot) o la URL no
  * responde, termina con código de salida 1 y un mensaje claro — nunca
@@ -99,7 +104,43 @@ async function main() {
   fs.mkdirSync(path.dirname(destino), { recursive: true });
   fs.writeFileSync(destino, resultado.buffer);
   console.log(`Guardado: ${destino} (${resultado.buffer.length} bytes, Content-Type: ${resultado.contentType || 'desconocido'})`);
-  console.log('Siguiente paso: lee este archivo local completo con tu herramienta de lectura de archivos para extraer los datos reales (no te quedes con el resumen del buscador).');
+
+  if (path.extname(destino).toLowerCase() === '.pdf') {
+    await extraerTextoPdf(destino, resultado.buffer);
+  } else {
+    console.log('Siguiente paso: lee este archivo local completo con tu herramienta de lectura de archivos para extraer los datos reales (no te quedes con el resumen del buscador).');
+  }
+}
+
+async function extraerTextoPdf(rutaPdf, buffer) {
+  const rutaTxt = rutaPdf + '.txt';
+  let PDFParse;
+  try {
+    ({ PDFParse } = require('pdf-parse'));
+  } catch (err) {
+    console.error('ADVERTENCIA: no se pudo cargar pdf-parse (¿falta "npm install" en la raíz del proyecto? ver AGENTS.md regla 30).');
+    console.error('El PDF se guardó igual, pero sin extracción automática de texto — ábrelo con tu herramienta de lectura de archivos como respaldo.');
+    return;
+  }
+  let parser;
+  try {
+    parser = new PDFParse({ data: buffer });
+    const resultado = await parser.getText();
+    const texto = (resultado.text || '').trim();
+    if (texto.length < 50) {
+      console.error(`ADVERTENCIA: pdf-parse no encontró texto extraíble en ${rutaPdf} (probablemente un PDF escaneado / solo imágenes).`);
+      console.error('No se generó .txt. Abre el PDF original con tu herramienta de lectura como respaldo, o pide al alumno una versión con texto real (no una imagen escaneada).');
+      return;
+    }
+    fs.writeFileSync(rutaTxt, texto, 'utf8');
+    console.log(`Texto extraído: ${rutaTxt} (${texto.length} caracteres)`);
+    console.log(`Siguiente paso: lee ${rutaTxt} completo con tu herramienta de lectura de archivos para extraer los datos reales (no te quedes con el resumen del buscador). Esta extracción es determinista — no depende de si tu IA puede abrir PDF nativamente.`);
+  } catch (err) {
+    console.error(`ADVERTENCIA: pdf-parse falló al procesar ${rutaPdf}: ${err.message}`);
+    console.error('El PDF se guardó igual. Ábrelo con tu herramienta de lectura de archivos como respaldo.');
+  } finally {
+    if (parser) await parser.destroy();
+  }
 }
 
 main();
