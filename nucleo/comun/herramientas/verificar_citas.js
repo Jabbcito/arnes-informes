@@ -34,19 +34,31 @@ function parseArgs(argv) {
   return a;
 }
 
-// Apellido con partícula ("de la Cruz", "Del Pozo", "van Dijk") — común en apellidos
-// peruanos/españoles. La partícula puede ir en mayúscula (inicio de una entrada de
-// Referencias, por regla ortográfica) o minúscula (dentro de una cita en el texto).
-// Apellido COMPUESTO sin partícula ("Vargas Llosa", "Angarita Becerra", "Pacheco
-// Olguín") también es muy común en español y se soporta (hasta 2 palabras). Para
-// evitar que el patrón "trague" la palabra anterior en frases como "Según Hinojo
-// (2019)", la PRIMERA palabra de un apellido no puede ser una de estas palabras de
+// Apellido con partícula AL INICIO ("de la Cruz", "Del Pozo", "van Dijk") — común en
+// apellidos peruanos/españoles. La partícula puede ir en mayúscula (inicio de una
+// entrada de Referencias, por regla ortográfica) o minúscula (dentro de una cita en
+// el texto). Apellido COMPUESTO sin partícula ("Vargas Llosa", "Angarita Becerra",
+// "Pacheco Olguín") también es muy común en español y se soporta (hasta 2 palabras).
+// Apellido con partícula EN MEDIO ("Sandoval de Castilla") también se soporta desde
+// v18: dos apellidos/palabras propias unidos por "de"/"del"/"van"/etc. — sin esto,
+// la cita parentética "(Sandoval de Castilla, 2020)" no se detectaba en absoluto, y
+// la narrativa "Sandoval de Castilla (2020)" solo capturaba "de Castilla" (el
+// apellido extraído no calzaba con la fuente real, dando un falso "sin entrada en
+// Referencias" pese a que la fuente existiera y estuviera bien citada). Para evitar
+// que el patrón "trague" la palabra anterior en frases como "Según Hinojo (2019)",
+// la PRIMERA palabra de un apellido no puede ser una de estas palabras de
 // enlace/preposición habituales antes de una cita narrativa.
 const STOP_INICIO = `(?:Seg[uú]n|Como|Para|Con|Sin|Entre|Desde|Ante|Bajo|Tras|Sobre|Hacia|Durante|Mediante)`;
 const CONECTOR = `(?:[Dd]e\\s+la|[Dd]e\\s+los|[Dd]el|[Dd]e|[Vv]an|[Vv]on)`;
 const PALABRA = `[A-ZÁÉÍÓÚÑ][\\wÁÉÍÓÚÑáéíóúñ'’-]*`;
 const PALABRA_INICIAL = `(?!${STOP_INICIO}\\b)${PALABRA}`;
-const AUTOR_BASE = `(?:${CONECTOR}\\s+${PALABRA}|${PALABRA_INICIAL}(?:\\s+${PALABRA})?)`;
+// Riesgo aceptado y documentado (ver README.md, "Límite honesto"): una frase
+// genérica en prosa como "el estudio de Castilla (2020)" es indistinguible en
+// narrativa de un apellido real "Sandoval de Castilla (2020)" — no se resuelve aquí
+// (exigiría consultar investigacion.md durante la extracción, cambio de arquitectura
+// desproporcionado para este caso).
+const AUTOR_MEDIO = `${PALABRA_INICIAL}\\s+${CONECTOR}\\s+${PALABRA}`;
+const AUTOR_BASE = `(?:${CONECTOR}\\s+${PALABRA}|${AUTOR_MEDIO}|${PALABRA_INICIAL}(?:\\s+${PALABRA})?)`;
 const AUTOR_GRUPO = `${AUTOR_BASE}(?:\\s+(?:y|&|et\\s+al\\.?)\\s*(?:${AUTOR_BASE})?)*`;
 const YEAR = `(?:19|20)\\d{2}[a-z]?|s\\.f\\.`;
 const PAGE = `pp?\\.\\s*\\d+(?:\\s*[-–]\\s*\\d+)?`;
