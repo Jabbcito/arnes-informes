@@ -93,6 +93,10 @@ Regla dura (27 en `AGENTS.md`): si compartes algo relevante en el chat — pegas
 - **Pandoc** — para exportar a Word/PDF (`nucleo/comun/exportacion/`).
 - **LibreOffice** o Microsoft Word — para convertir el DOCX final a PDF y hacer el acabado manual (numeración romana/arábiga, índices).
 
+## Licencia
+
+Código disponible bajo [PolyForm Noncommercial 1.0.0](LICENSE): puedes ver, usar y modificar este arnés libremente para fines **no comerciales** (uso personal, estudio, tu propia tesis). Cualquier uso comercial (revenderlo, usarlo para dictar o vender un curso) requiere permiso explícito del autor, Josué André Bringas Beltrán. No es una licencia "open source" en el sentido estricto de OSI (que exige permitir también el uso comercial) — es "source-available": el código es visible y auditable, pero el uso comercial está reservado.
+
 ## Punto de partida
 
 Empieza siempre por [ROUTING.md](ROUTING.md) — es el índice que decide qué otro archivo abrir según la tarea puntual, para no cargar todo el arnés de una vez.
