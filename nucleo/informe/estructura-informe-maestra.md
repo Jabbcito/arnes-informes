@@ -2,6 +2,8 @@
 
 Esta plantilla es una reducción de `../tesis/estructura-tesis-maestra.md` para trabajos que no son tesis: informes, monografías, ensayos. Se basa en el mismo estándar (validado contra tesis reales de repositorios universitarios peruanos), quitando las piezas exclusivas de una tesis formal: declaratorias de autenticidad/originalidad firmadas por asesor y autores, dedicatoria/agradecimiento, índices separados de tablas y figuras, variables y operacionalización formal, población/muestra/muestreo, y discusión como capítulo aparte (aquí se fusiona con el desarrollo). Para trabajos más simples aún (ensayo corto, exposición) se recortan más pasos, pero el orden y el control de evidencia no cambian.
 
+El contenido detallado de cada sección se sigue tomando de `../tesis/contenido/` (fuente única, no duplicada) — pero qué omitir o fusionar de cada archivo, archivo por archivo, está en `contenido/omisiones.md`, no a criterio libre del agente en cada sesión.
+
 Regla general: cada sección se construye **una por una**, con la evidencia verificada disponible en ese momento. Ninguna skill genera el informe completo de un solo prompt.
 
 ---

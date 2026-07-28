@@ -15,7 +15,8 @@ Patrón estándar observado en las tesis reales (el orden y la cantidad varían 
 | 4 | **Prueba de confiabilidad** — resultados del piloto (ej. capturas/tablas de SPSS con alfa de Cronbach) | El alumno (datos reales de su piloto); el arnés solo da formato |
 | 5 | **Validación por juicio de expertos** — matrices/fichas firmadas por los expertos | Humanos reales — el arnés deja `[PENDIENTE: FICHAS FIRMADAS POR EXPERTOS]` |
 | 6 | **Cartas y autorizaciones** — permiso de la institución donde se aplicó el estudio | Humanos reales — `[PENDIENTE: CARTA/AUTORIZACIÓN]` |
-| 7 | **Reporte de similitud Turnitin** | Se corre sobre el documento final — `[PENDIENTE: REPORTE TURNITIN]` (regla 11 de `../../../AGENTS.md`) |
+| 7 | **Dictamen de comité de ética** — solo si el estudio involucra población vulnerable, menores de edad, o datos de salud (ver `metodologia.md`, aspectos éticos) | Humanos reales — `[PENDIENTE: DICTAMEN COMITÉ DE ÉTICA]` |
+| 8 | **Reporte de similitud Turnitin** (ver `../../comun/apa/originalidad-y-similitud.md`) | Se corre sobre el documento final — `[PENDIENTE: REPORTE TURNITIN]` (regla 11 de `../../../AGENTS.md`) |
 | + | Evidencia adicional que pida la rúbrica: fotos, tablas extensas, organigramas, informes intermedios | Según el caso |
 
 ## Anexos con imágenes (escaneos, pantallazos, cartas)

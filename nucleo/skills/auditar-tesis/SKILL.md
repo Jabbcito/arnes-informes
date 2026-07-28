@@ -20,7 +20,8 @@ Cuando el alumno cree que la tesis está lista para exportar. Es el paso previo 
 9. **Anexos**: cada anexo existe, está numerado y referenciado desde el cuerpo; los que dependen de firmas/reportes externos están correctamente marcados `[PENDIENTE: ...]` (esos NO bloquean la auditoría, son responsabilidad humana posterior — pero se listan en el resultado).
 10. **Título**: sigue describiendo exactamente lo que la tesis terminó siendo; la verificación de disponibilidad está registrada en `output/trabajo/verificacion-titulo.md`.
 11. **Sin `[EVIDENCIA PENDIENTE]`** en el cuerpo (los `[PENDIENTE: firma/Turnitin]` de declaratorias y anexos son los únicos aceptables).
-12. Actualiza `output/trabajo/checklist-final.md` con el resultado de cada punto (✓/✗ + detalle).
+12. **Revisión visual final en Word real** (no solo LibreOffice, que es lo único que este arnés puede probar automáticamente): el alumno abre el DOCX exportado en su propia instalación de Microsoft Word y revisa con sus propios ojos — en particular, cualquier tabla larga que se corte entre dos páginas (que quede legible, con el encabezado repetido) y que estilos/numeración se vean igual que en la vista previa. Este punto queda marcado `[PENDIENTE: REVISIÓN EN WORD REAL]` hasta que el alumno confirme que lo hizo — es un chequeo humano, no algo que el arnés pueda verificar por código.
+13. Actualiza `output/trabajo/checklist-final.md` con el resultado de cada punto (✓/✗ + detalle).
 
 ## Salida
 

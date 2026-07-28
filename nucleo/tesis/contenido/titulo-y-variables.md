@@ -23,7 +23,13 @@ Antes de dar un título por confirmado, se ejecuta esta búsqueda y se registra 
    - El **repositorio de la propia universidad** del alumno.
 2. Buscar también la combinación de variables + población (sin el formato exacto del título), porque un título "casi igual" con palabras cambiadas sigue siendo un problema.
 3. Registrar el resultado en `output/trabajo/verificacion-titulo.md`: fecha de búsqueda, dónde se buscó, qué títulos similares se encontraron (con enlace), y el veredicto: `DISPONIBLE`, `SIMILAR ENCONTRADO (ajustar)` o `OCUPADO (cambiar)`.
-4. Si hay títulos similares, diferenciarse cambiando alguno de estos ejes: población, lugar, periodo, enfoque o la segunda variable. No basta con cambiar sinónimos.
+4. Si hay títulos similares, diferenciarse **primero por un eje seguro** — no basta con cambiar sinónimos:
+   - **Ejes seguros** (no tocan el objeto de estudio — usarlos primero): **población, lugar, periodo**. Cambiar cualquiera de estos no invalida nada de lo ya investigado sobre las variables.
+   - **Ejes que cambian el objeto de estudio** (usar solo si los ejes seguros no alcanzan para diferenciarse): **enfoque, o la segunda variable**. Cambiar uno de estos significa que la tesis pasa a tratar de algo distinto — no es un simple reemplazo de palabras en el título.
+
+   **Regla dura si se usa un eje que cambia el objeto de estudio**: antes de seguir, revisar si ya existen `fuentes/investigacion.md` con fuentes registradas y/o `output/trabajo/matriz-consistencia.md` construida sobre las variables/enfoque anteriores.
+   - Si el título es temprano (aún no hay fuentes investigadas ni matriz), no hay riesgo — se cambia con libertad y se continúa.
+   - Si ya existen fuentes y/o matriz, **detenerse de inmediato** (no esperar a la auditoría final) y decírselo explícitamente al alumno: qué fuentes ya no encajan con la variable/enfoque nuevo, qué parte de la matriz hay que rehacer, y confirmar con él cómo seguir (conservar las fuentes que sí sigan siendo pertinentes, buscar las que falten, ajustar la matriz) antes de redactar nada más. Cambiar el título de este modo sin revisar lo ya construido es exactamente el escenario que hace que el cambio "no sirva de nada" — se pierde la coherencia entre lo investigado y lo que el título dice ahora.
 5. El alumno confirma el veredicto abriendo él mismo los enlaces encontrados.
 
 ### Límite honesto de este protocolo

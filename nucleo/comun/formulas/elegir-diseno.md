@@ -38,6 +38,10 @@ Normalidad por grupo (Shapiro-Wilk/K-S, SPSS/Jamovi) →
 - **2 grupos**: normales → **t de Student para muestras independientes**, `../herramientas/prueba-t.js` (Welch, no exige antes una prueba de igualdad de varianzas); no normales → **U de Mann-Whitney** (SPSS/Jamovi, no está en `../herramientas/`).
 - **3+ grupos**: normales → **ANOVA de un factor**, `../herramientas/anova.js` (sin comparaciones post-hoc — si sale significativo y hace falta saber qué pares difieren, eso sí en SPSS/Jamovi); no normales → **Kruskal-Wallis** (SPSS/Jamovi).
 
+### 4.1 Diseño factorial (2+ variables independientes cruzadas)
+
+Cuando el diseño no es "grupo experimental vs. control" simple sino que cruza **dos o más factores** a la vez (ej. método de enseñanza × turno, ambos con su propio efecto y con posible interacción entre ellos) — distinto del caso 4 de arriba, que es de un solo factor con 2 o 3+ niveles. La prueba correspondiente es **ANOVA factorial (de dos o más vías)**, o **MANOVA** si hay más de una variable dependiente. **No implementado en `../herramientas/` a propósito** — mismo criterio honesto que las pruebas de normalidad exactas y los post-hoc (ver `../herramientas/README.md`, "Límite honesto"): una interacción entre factores mal calculada es mucho más difícil de detectar a simple vista que un ANOVA de un factor, y el costo de un bug silencioso ahí supera el beneficio de tenerlo en código propio. Se corre en SPSS/Jamovi y se reporta el efecto principal de cada factor + la interacción, con su tamaño del efecto (eta parcial al cuadrado).
+
 ### 5. Asociación entre variables categóricas (niveles, no puntajes)
 
 **Chi-cuadrado de independencia** sobre la tabla cruzada: `../herramientas/chi-cuadrado.js` (calcula la tabla, el estadístico, gl, p-valor y V de Cramér en un solo paso — igual que `Crosstabs` de SPSS con la opción de chi-cuadrado activada). Reporte: (χ²(gl, N=n)=X.XX; p=0.XXX; V=X.XX).
