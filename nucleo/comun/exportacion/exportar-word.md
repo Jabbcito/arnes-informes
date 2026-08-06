@@ -16,7 +16,7 @@ pandoc output/trabajo/informe.md \
   --from markdown+raw_attribute \
   --reference-doc=nucleo/comun/exportacion/plantillas/plantilla-apa.docx \
   --lua-filter=nucleo/comun/exportacion/plantillas/tabla-anchos.lua \
-  --toc --toc-depth=3 \
+  --lua-filter=nucleo/comun/exportacion/plantillas/indice-toc.lua \
   --resource-path=.:anexos/imagenes \
   -o output/entregables/informe.docx
 ```
@@ -24,9 +24,38 @@ pandoc output/trabajo/informe.md \
 - `--from markdown+raw_attribute` habilita los saltos de página reales (ver más abajo) — sin esta extensión, el marcador de salto de página se ignora.
 - `--reference-doc` aplica los ESTILOS de la plantilla (no su contenido).
 - `--lua-filter=.../tabla-anchos.lua` corrige el ancho de columnas de **todas** las tablas (ver "Tablas legibles" más abajo) — no omitir este flag, sin él las tablas vuelven a salir con columnas forzadas a partes iguales.
-- `--toc` genera el índice de contenidos como campo de Word (se actualiza con F9 / clic derecho → Actualizar campos). **Esto ya es un índice funcional, no una lista de texto.**
+- `--lua-filter=.../indice-toc.lua` inserta el índice de contenidos como **campo real de Word con los números de página pre-calculados** (pipeline de doble pasada: `extraer_paginas_indice.js` lee el PDF maquetado y el filtro puebla el campo; ver "Pipeline de números de página reales" más abajo) **en la posición exacta marcada en `informe.md`**. **NO usar `--toc` de Pandoc**: con ese flag el índice se coloca al inicio del cuerpo, ANTES de la carátula — posición incorrecta para el formato de tesis (carátula → declaratorias → dedicatoria → agradecimiento → índice → resumen).
 - `--resource-path` permite que las imágenes de anexos se incrusten.
 - Las tablas Markdown se convierten en **tablas nativas de Word editables** — nunca imágenes.
+
+## Índice de contenidos (campo de Word, siempre presente)
+
+El índice de contenidos es parte obligatoria de la entrega (regla 7: el índice, la carátula y las referencias deben coincidir siempre con el contenido real). Se declara en el propio `informe.md`, en la posición que exige la estructura maestra (tras el Agradecimiento, antes del Resumen), con un div vacío:
+
+```markdown
+## AGRADECIMIENTO
+...
+
+```{=openxml}
+<w:p><w:r><w:br w:type="page"/></w:r></w:p>
+```
+
+::: {#indice}
+:::
+
+## RESUMEN
+```
+
+El filtro `indice-toc.lua` convierte ese marcador en tres elementos OOXML: el título "ÍNDICE DE CONTENIDOS" (estilo `TOCHeading`), el campo real `TOC \o "1-3" \h \z \u`, y el salto de página hacia el Resumen (que va DENTRO del último párrafo del campo — un párrafo suelto con el salto genera una página en blanco cuando el índice ocupa una página completa, bug encontrado y corregido en la prueba E2E v19). **Verificado en v19**: pandoc → DOCX → PDF, el índice aparece en su página propia entre Agradecimiento y Resumen (índices de posición en el XML: carátula < TOC < resumen), y la conversión a PDF suma la página correspondiente.
+
+### Pipeline de números de página reales (doble pasada)
+
+Un campo TOC de Word solo se puebla cuando Word lo actualiza (F9) — Pandoc no maqueta páginas, así que no puede rellenarlo. Para que el índice exportado ya salga con los números reales, el arnés calcula las páginas sobre el PDF maquetado y vuelve a exportar:
+
+1. **Primera pasada**: pandoc → DOCX → PDF (LibreOffice). En esta pasada el filtro no encuentra `output/trabajo/indice-paginas.json` y deja un placeholder explícito en el campo ("Ejecutar el pipeline del índice…") — nunca falla en silencio.
+2. **Extraer páginas**: `node nucleo/comun/herramientas/extraer_paginas_indice.js --informe output/trabajo/informe.md --pdf output/entregables/informe.pdf --salida output/trabajo/indice-paginas.json` — lee el PDF con `pdf-parse` y calcula el número de página real de cada título nivel 2-3 (salta bloques de código; excluye las páginas del propio índice para evitar falsos positivos; los títulos que el PDF parte en dos líneas se buscan palabra a palabra).
+3. **Segunda pasada**: pandoc de nuevo (mismo comando, ahora con el JSON presente). El índice poblado ocupa una página entera, lo que puede desplazar el resto — por eso se repite el paso 2 y se comparan los dos JSON: si difieren, se copia el nuevo y se re-exporta hasta **convergencia** (en la prueba E2E v19 bastaron 2 pasadas: 38 páginas finales, índice de 41 entradas con números correctos y 0 páginas vacías).
+4. **En Word real**: tras el acabado (numeración romana/arábiga), el alumno actualiza el campo una vez (clic derecho → Actualizar campo, o F9) y el índice toma la numeración definitiva — la página del índice en el PDF del arnés puede quedar desfasada por ese cambio, por eso se re-exporta el PDF final en Word/Google Docs después del acabado.
 
 ## Tablas legibles (bug real encontrado y corregido)
 

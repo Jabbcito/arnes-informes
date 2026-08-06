@@ -28,7 +28,7 @@ Reglas:
 1. **Numeración correlativa única** en todo el documento (Tabla 1, Tabla 2, ...), en orden de aparición. Si se inserta una tabla nueva en medio, se renumeran todas las posteriores y se regenera el índice de tablas.
 2. **Título arriba (en el DOCX exportado), fuente abajo.** El título dice qué muestra; la fuente dice de dónde salen los datos.
 3. **Toda tabla se comenta**: después de cada tabla va un párrafo de interpretación (ver `resultados.md` y la plantilla de redacción abajo). Ninguna tabla queda "huérfana" sin lectura.
-4. **Datos reales únicamente**: las celdas se llenan con datos del propio estudio del alumno (encuesta, ficha, registros) o de una fuente `VERIFICADA` citada en la fuente de la tabla. Si aún no existen los datos, la tabla se deja con estructura y celdas `[EVIDENCIA PENDIENTE]` — nunca con cifras plausibles inventadas.
+4. **Datos reales únicamente**: las celdas se llenan con datos del propio estudio del alumno (encuesta, ficha, registros) o de una fuente `VERIFICADA` citada en la fuente de la tabla. Si aún no existen los datos, la tabla se deja con estructura y celdas `[EVIDENCIA PENDIENTE]` — nunca con cifras plausibles inventadas. Los datos sintéticos o de práctica (demostración, ejemplo del curso) se etiquetan `[DATOS SINTÉTICOS DE PRÁCTICA]` en la fuente de la tabla y en el nombre del CSV (`output/trabajo/datos-practica.csv`), y jamás se presentan como resultados reales del estudio (regla 26 de `../../../AGENTS.md`).
 5. Lo mismo aplica a **figuras** (Figura 1, Figura 2, ...): numeración propia separada de las tablas, título, fuente, y referencia en el texto ("como se observa en la Figura 2...").
 
 ## Plantilla de redacción de la interpretación (mejora sobre "se observa que...")

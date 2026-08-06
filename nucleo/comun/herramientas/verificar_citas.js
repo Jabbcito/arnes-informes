@@ -50,7 +50,12 @@ function parseArgs(argv) {
 // enlace/preposición habituales antes de una cita narrativa.
 const STOP_INICIO = `(?:Seg[uú]n|Como|Para|Con|Sin|Entre|Desde|Ante|Bajo|Tras|Sobre|Hacia|Durante|Mediante)`;
 const CONECTOR = `(?:[Dd]e\\s+la|[Dd]e\\s+los|[Dd]el|[Dd]e|[Vv]an|[Vv]on)`;
-const PALABRA = `[A-ZÁÉÍÓÚÑ][\\wÁÉÍÓÚÑáéíóúñ'’-]*`;
+// v19 (hallazgo E2E): la clase solo aceptaba ÁÉÍÓÚÑ; apellidos con otros
+// diacríticos latinos (Sümer, Özyer, Altınsoy, Çakır, Şahin) se fragmentaban
+// ("Sümer" -> "S", "Karakaya Özyer" -> "Karakaya") y producían referencias
+// HUÉRFANAS y citas no detectadas. Se amplía al suplemento latino-1 completo
+// (À-Ö, Ø-ö, ø-ÿ) más el bloque turco ĞğİıŞş.
+const PALABRA = `[A-ZÀ-ÖØ-ÞĞİŞ][\\wÀ-ÖØ-öø-ÿĞğİıŞş'’-]*`;
 const PALABRA_INICIAL = `(?!${STOP_INICIO}\\b)${PALABRA}`;
 // Riesgo aceptado y documentado (ver README.md, "Límite honesto"): una frase
 // genérica en prosa como "el estudio de Castilla (2020)" es indistinguible en
@@ -159,7 +164,12 @@ function fuentesVerificadas(ruta) {
     // lista ("- **Autor**:") es opcional: ninguna skill documenta ese guion
     // como obligatorio, así que el parser acepta la línea con o sin él en
     // vez de fallar en silencio cuando falta (bug real encontrado en E2E).
-    const mAutor = bloque.match(/^-?\s*\*\*Autor\*\*:\s*(.+)$/im);
+    // v19 (hallazgo E2E): investigacion.md escribe el campo como "**Autor:**"
+    // (dos puntos dentro del negrita); el patrón anterior exigía "**Autor**:"
+    // (dos puntos fuera) y no matcheaba NINGÚN bloque — todas las fuentes
+    // VERIFICADA parecían "no registradas". Se aceptan ambos formatos:
+    // "**Autor**:" (dos puntos fuera) o "**Autor:**" (dos puntos dentro).
+    const mAutor = bloque.match(/^-?\s*\*\*Autor(?:\*\*:?|:\*\*)\s*(.+)$/im);
     if (!mAutor) continue;
     const apellido = apellidoDesdeCampoAutor(mAutor[1]);
     if (/\bVERIFICADA\b/.test(bloque)) {

@@ -13,7 +13,7 @@ Esta es la plantilla más completa del sistema. `../informe/estructura-informe-m
 3. **Declaratoria de originalidad de los autores** — firmada por el/los autor(es), declarando que no hay plagio, datos falseados ni duplicados. Mismo tratamiento que el punto 2: el arnés no la redacta como si ya estuviera firmada. En su propia página.
 4. **Dedicatoria** — el arnés pregunta al alumno a quién va dirigida antes de redactarla (`contenido/dedicatoria-agradecimiento.md`); nunca un texto genérico. En su propia página.
 5. **Agradecimiento** — mismo tratamiento: se pregunta a quién y por qué antes de redactar (`contenido/dedicatoria-agradecimiento.md`). En su propia página.
-6. **Índice de contenidos** — generado desde los títulos reales del documento (campo real de Word vía `--toc` de Pandoc, se actualiza con F9).
+6. **Índice de contenidos** — generado desde los títulos reales del documento e incluye los preliminares (declaratorias, dedicatoria, agradecimiento, resumen, abstract) hasta los anexos. Es un campo real de Word generado por el filtro `../comun/exportacion/plantillas/indice-toc.lua` — **no** con `--toc` de Pandoc, que colocaría el índice antes de la carátula — y se puebla con números de página reales del PDF maquetado (pipeline de doble pasada, ver `../comun/exportacion/exportar-word.md`); se actualiza con F9.
 7. **Índice de tablas** — generado desde las tablas reales insertadas (paso de Word: Referencias → Insertar tabla de ilustraciones → Estilo `TableCaption`, ver `../comun/exportacion/exportar-word.md`).
 8. **Índice de figuras** — mismo mecanismo, estilo `ImageCaption`.
 9. **Resumen** + palabras clave (3 a 5 términos). En su propia página — la guía APA 7 real lo exige explícitamente ("comience el resumen en una nueva página").
@@ -53,6 +53,7 @@ Esta es la plantilla más completa del sistema. `../informe/estructura-informe-m
 ### V. Discusión
 
 - Contraste de los resultados propios contra los antecedentes del marco teórico: en qué coincide, en qué difiere, y por qué. Esta sección es distinta de Resultados y de Conclusiones — no se fusionan.
+- Cierra con la subsección obligatoria **"Limitaciones del estudio"** (estándar STROBE, ítems 19-21): sesgo potencial, imposibilidad de causalidad en diseño transversal, generalizabilidad (`contenido/discusion.md`).
 
 ### VI. Conclusiones
 
@@ -83,6 +84,7 @@ Esta es la plantilla más completa del sistema. `../informe/estructura-informe-m
 10. No se redacta ninguna sección más allá de Metodología 3.4 sin que el instrumento tenga alfa de Cronbach ≥ 0.70 confirmado por `../comun/herramientas/confiabilidad.js` sobre datos reales de un piloto (`contenido/instrumento-y-muestra.md`).
 11. Declaratorias, Dedicatoria, Agradecimiento, Resumen y Abstract van cada uno en su propia página en la exportación final (`../comun/exportacion/exportar-word.md`).
 12. No se redacta Resultados (ni Discusión, Conclusiones, Recomendaciones) sin `output/trabajo/datos-principales.csv` real — el instrumento validado aplicado a toda la muestra, nunca el CSV del piloto (`contenido/recoleccion-datos-principal.md`).
+13. La Discusión termina con la subsección "Limitaciones del estudio" y nunca afirma mediación, causalidad ni dirección de la relación en diseños transversales — solo asociación, señalando la dimensión con la asociación más fuerte (`contenido/discusion.md`).
 
 ## Reducción a informe (no-tesis)
 

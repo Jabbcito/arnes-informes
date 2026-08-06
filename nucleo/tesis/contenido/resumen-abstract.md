@@ -24,3 +24,4 @@ Traducción fiel del Resumen al inglés — mismo contenido, mismas cifras, mism
 1. Ninguna cifra del Resumen puede diferir de la que aparece en Resultados/Conclusiones.
 2. Extensión típica: 150-250 palabras.
 3. Sin citas, sin siglas no explicadas, sin información que no esté en el cuerpo.
+4. Si la tesis es transversal, la conclusión del Resumen no usa verbos causales ni "media" — se redacta como asociación, coherente con Conclusiones y `discusion.md`.

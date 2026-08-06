@@ -36,3 +36,4 @@ Solo cuando no se puede acceder a la fuente original: `Bandura (1977, como se ci
 1. Ninguna cita se escribe si la fuente no está `VERIFICADA` en `fuentes/investigacion.md`.
 2. Toda cita textual lleva página (o número de párrafo si la fuente no tiene páginas).
 3. La paráfrasis debe reflejar fielmente lo que dice la fuente — eso no lo puede validar un script: el alumno relee la fuente y confirma.
+4. **Toda cifra, estadística o prevalencia se cita desde su fuente primaria** (el estudio que la produjo), nunca a través de un resumen, un informe de terceros o una cita secundaria ("según cifras reportadas en..."). Si solo se tiene la versión secundaria, se busca el origen (regla 28 de `../../../AGENTS.md`); mientras no exista, se escribe `[EVIDENCIA PENDIENTE]` en vez de citar el dato de segunda mano.

@@ -13,6 +13,15 @@ El arnés nunca puede correr Turnitin ni inventar un porcentaje de similitud (re
 - **Una idea, una fuente, una paráfrasis propia**: no se copian dos o tres oraciones seguidas de la misma fuente reordenando solo la primera; cada afirmación se redacta desde cero a partir de haber entendido la fuente completa (regla de lectura completa antes de citar, `../../skills/investigar-fuentes/SKILL.md`).
 - **Cuidado con las definiciones "de manual"**: las definiciones de conceptos muy citados (ej. "la motivación es...") suelen tener redacciones casi idénticas en muchas fuentes por lo mucho que se han copiado entre tesis — conviene definir con las propias palabras después de leer 2-3 fuentes distintas, no copiar la definición de una sola.
 
+## Plagio involuntario con IA (el más común y el más fácil de cometer sin darse cuenta)
+
+Parafrasear un texto de IA cambiando pocas palabras sin cambiar la estructura de la oración sigue siendo plagio — exactamente la misma regla que con una fuente escrita (las guías de integridad de Oxford, Miami y CMU lo tratan igual). El arnés redacta borradores, pero el texto final tiene que ser **del alumno**:
+
+- **Leer cada sección antes de aceptarla**: el arnés trabaja por secciones justamente para que el alumno revise y comprenda cada una antes de seguir (regla 9 de `../../../AGENTS.md`). Una sección que el alumno no puede explicar no puede ir al documento.
+- **Reescribir con las propias palabras**: el borrador es un punto de partida; el alumno lo lee, lo entiende y lo vuelve a escribir con su vocabulario. La paráfrasis real cambia la estructura de la oración, no solo sinónimos.
+- **No pegar bloques de chat al documento**: el camino del arnés (fuente `VERIFICADA` leída completa → idea entendida → paráfrasis propia) es la defensa contra el plagio involuntario; copiar respuestas sueltas de un chat rompe ese camino.
+- **Nunca pegar prompts ni marcas del proceso**: lo que queda en el documento es contenido académico, no la conversación que lo produjo (ver "Restos de andamiaje" en la skill `verificar-formato`).
+
 ## Qué hacer si ya existe un reporte de Turnitin con porcentaje alto
 
 Esto es trabajo del alumno, no algo que el arnés pueda hacer por él (nunca ve el reporte real hasta que el alumno lo pega o lo describe):

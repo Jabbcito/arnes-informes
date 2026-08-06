@@ -1,6 +1,6 @@
 # Arnés de creación de informes académicos
 
-Sistema de reglas, plantillas y scripts para que un agente de IA (OpenCode, Claude Code o Codex) ayude a un estudiante universitario a redactar una **tesis** (o, próximamente, un informe/monografía) de forma estructurada: con fuentes reales descargadas y leídas completas (no solo resúmenes de buscador), formato APA 7 real, cálculos estadísticos hechos por código (nunca "a ojo" por la IA) y con fidelidad garantizada entre lo calculado y lo que llega al documento, y puntos de control que obligan a traer datos reales de campo antes de avanzar.
+Sistema de reglas, plantillas y scripts para que un agente de IA (OpenCode, Claude Code o Codex) ayude a un estudiante universitario a redactar una **tesis** (o un **informe/monografía**, en modo reducido — ver `nucleo/informe/`) de forma estructurada: con fuentes reales descargadas y leídas completas (no solo resúmenes de buscador), formato APA 7 real, cálculos estadísticos hechos por código (nunca "a ojo" por la IA) y con fidelidad garantizada entre lo calculado y lo que llega al documento, y puntos de control que obligan a traer datos reales de campo antes de avanzar.
 
 No es un generador de tareas de un solo clic. El agente construye el trabajo sección por sección, se detiene a pedir confirmación o datos reales cuando corresponde, y nunca inventa autores, cifras, encuestas ni referencias.
 
@@ -33,7 +33,8 @@ nucleo/                  El motor del arnés — no se edita, solo lo usan las s
     contenido/                Un archivo por sección de la tesis
     estructura-tesis-maestra.md
   informe/
-    estructura-informe-maestra.md   Versión reducida (no-tesis, en desarrollo)
+    estructura-informe-maestra.md   Versión reducida (no-tesis)
+    contenido/omisiones.md           Qué omitir/fusionar de tesis/contenido/ en modo informe
 ```
 
 `nucleo/comun/` no es exclusivo de tesis: el mismo formato APA, las mismas fórmulas y el mismo pipeline de exportación sirven igual para un informe o monografía — por eso vive fuera de `nucleo/tesis/`.

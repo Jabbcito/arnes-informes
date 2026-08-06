@@ -5,8 +5,8 @@ aplica_a: tesis
 
 # Resultados
 
-1. **Resultados descriptivos**: una tabla de frecuencias por variable y por cada dimensión, seguida siempre de un párrafo de interpretación (qué categoría es más frecuente, con su %, y una lectura breve). Después, tablas cruzadas (variable x variable, o dimensión x variable) con su propia interpretación.
-2. **Análisis inferencial**: prueba de normalidad (con hipótesis H0/H1 explícitas) → justificación de qué prueba estadística corresponde → prueba de hipótesis general (H0/H1, tabla de correlación/significancia, interpretación) → prueba de cada hipótesis específica, en el mismo formato.
+1. **Resultados descriptivos**: si el CSV trae datos sociodemográficos (edad, sexo, procedencia, y las que correspondan al contexto: ciclo, estrato, sede), primero una tabla de frecuencias con esos datos — describe la muestra y permite evaluar confusores (estándar STROBE, ítem 14). Después, una tabla de frecuencias por variable y por cada dimensión, seguida siempre de un párrafo de interpretación (qué categoría es más frecuente, con su %, y una lectura breve). Finalmente, tablas cruzadas (variable x variable, o dimensión x variable) con su propia interpretación.
+2. **Análisis inferencial**: prueba de normalidad (con hipótesis H0/H1 explícitas) → justificación de qué prueba estadística corresponde → prueba de hipótesis general (H0/H1, tabla de correlación/significancia, interpretación) → prueba de cada hipótesis específica, en el mismo formato. Toda correlación se interpreta como **asociación**, nunca como causalidad, y se revisa si una tercera variable (edad, sexo, etc.) podría explicarla — la correlación espuria es una explicación probable de hallazgos que contradicen los antecedentes (ver `discusion.md`).
 
 ## Regla dura
 

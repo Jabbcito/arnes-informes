@@ -16,6 +16,7 @@ Título y variables ya confirmados.
    - 1 fuente (mínimo) por cada **dimensión** declarada de cada variable.
    - 3 a 5 fuentes de **teorías formales** relacionadas (nombre de la teoría + autor que la formuló).
    - El resto como **antecedentes empíricos** (estudios que midieron estas variables o similares).
+   - Si el diseño lo requiere (ej. cifras oficiales, base de datos pública): fuentes tipo **dataset** — con origen, acceso, fecha de descarga y permiso de uso, y se citan como fuente en Referencias.
 2. Formula búsquedas concretas por variable/dimensión/teoría. Primero corre `node nucleo/comun/herramientas/buscar_fuentes.js "<término>" --desde <año>` (consulta OpenAlex, gratis y sin clave — trae autor/año/DOI/revista reales y el enlace directo al PDF cuando el trabajo es de acceso abierto, evitando raspar una página de resultados de buscador que a veces esconde un bloqueo anti-bot). Completa con búsqueda manual dentro de `../../../fuentes-permitidas.md` para lo que OpenAlex no cubra bien (ej. repositorios universitarios peruanos específicos).
 3. Reúne **mínimo 15 fuentes candidatas** con año de publicación ≤5 años respecto a la fecha real en que se ejecuta el arnés (no una fecha fija — usa la fecha del sistema).
 4. Si tras una búsqueda razonable no se llega a 15 fuentes en esa ventana de 5 años, **amplía a 10 años** y dilo explícitamente en una sección nueva "Ampliación de vigencia" en `fuentes/investigacion.md` (qué categoría no tenía suficientes fuentes recientes y por qué se amplió).
@@ -29,6 +30,7 @@ Título y variables ya confirmados.
    - Autor(es), año, título, revista/fuente.
    - **Categoría**: definición-conceptual / dimensión / teoría / antecedente-empírico (según para qué se buscó).
    - Si es antecedente empírico: país/contexto, objetivo del estudio, tipo/diseño, muestra/técnica, resultado con cifra concreta, conclusión.
+   - Si es **dataset**: origen, acceso (URL o DOI), fecha de descarga, permiso/licencia de uso, y para qué cifra se usará.
    - Si es conceptual/teórica: la definición o el postulado citado tal como aparece en el texto (no una paráfrasis de un resumen).
 9. Si la fuente tiene DOI, corre `node nucleo/comun/herramientas/verificar_doi.js <DOI>` como chequeo de refuerzo: confirma que el DOI existe de verdad y trae sus metadatos reales para comparar contra lo que vas a registrar. No reemplaza el paso 8 (leer la fuente completa).
 10. Registra cada fuente en `fuentes/investigacion.md` con estos campos (afirmación útil, autor, año, título, fuente, URL, categoría, y los campos empíricos si aplica) y estado `PENDIENTE DE VERIFICAR`. Incluye una nota de vigencia (año de publicación vs. fecha de ejecución del arnés).
