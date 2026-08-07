@@ -127,8 +127,9 @@ Esto no es un mecanismo nuevo, solo lo hace explícito: es el mismo principio qu
 
 ## Estado de este arnés
 
-- **Versión activa: v19.** Completo y validado contra tesis reales: estructura, contenido por sección, fuentes, reglas, APA 7 (de la guía oficial), fórmulas por diseño, scripts probados con datos conocidos, pipeline de exportación verificado (incluye índice de contenidos real poblado por el arnés — `indice-toc.lua` + `extraer_paginas_indice.js`, ver `nucleo/comun/exportacion/exportar-word.md`) y prueba E2E de punta a punta con los 4 entregables reales (DOCX, PDF, slides HTML y PDF de sustentación).
+- **Versión activa: v21.** Completo y validado contra tesis reales: estructura, contenido por sección, fuentes, reglas, APA 7 (de la guía oficial), fórmulas por diseño, scripts probados con datos conocidos, pipeline de exportación verificado (incluye índice de contenidos real poblado por el arnés — `indice-toc.lua` + `extraer_paginas_indice.js`, ver `nucleo/comun/exportacion/exportar-word.md`) y prueba E2E de punta a punta con los 4 entregables reales (DOCX, PDF, slides HTML y PDF de sustentación).
 - Modo informe disponible desde v17: `nucleo/informe/contenido/omisiones.md` define archivo por archivo qué omitir o fusionar de `nucleo/tesis/contenido/` — el modo informe ya no depende de que el agente decida en vivo.
+- Desde v21, dos límites estructurales de la IA se resuelven con verificación humana obligatoria (no con "mejor prompt"): detectar correlaciones espurias/confusores (checklist de 3 preguntas en `discusion.md`) y confirmar que un parafraseo no distorsione el significado técnico de la fuente (`originalidad-y-similitud.md` / `citas.md`, regla 5).
 - Chequeos humanos que siguen vigentes (el arnés no puede verificarlos por código): revisión visual final en Word real — punto 12 de `auditar-tesis`, `[PENDIENTE: REVISIÓN EN WORD REAL]` — y `node --version` en una instalación limpia de alumno (smoke test del día 1, ver "Primer paso, siempre" en `AGENTS.md`).
-- Historial completo de versiones v3-v19 (cada prueba E2E, bug corregido y decisión documentada): `CHANGELOG.md`.
+- Historial completo de versiones v3-v21 (cada prueba E2E, bug corregido y decisión documentada): `CHANGELOG.md`.
 

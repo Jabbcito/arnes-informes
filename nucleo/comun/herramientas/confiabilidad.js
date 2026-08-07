@@ -197,6 +197,10 @@ function main() {
   lineas.push('');
   lineas.push(`${nombre} = ${coef.toFixed(3)}  → confiabilidad ${interpretar(coef)}`);
 
+  if (n < 30) {
+    lineas.push(`⚠ AVISO: n=${n} < 30 — con muestras pequeñas la estimación del coeficiente es inestable (IC 95% amplio). No invalida el resultado, pero debe declararse como limitación del piloto (ver discusion.md).`);
+  }
+
   const ic = intervaloConfiabilidad(datos, calc, 2000);
   lineas.push(`IC 95% (bootstrap no paramétrico, 2000 remuestras, semilla fija): [${ic.lo.toFixed(3)}, ${ic.hi.toFixed(3)}]`);
 

@@ -21,6 +21,12 @@ En diseños transversales (medición simultánea, sin orden temporal), **nunca s
 
 Antes de dar por interpretable un resultado significativo, se revisa si una tercera variable podría explicarlo — los confusores más comunes son **edad y sexo** (y según el contexto: ciclo, procedencia, estrato). Si esos datos existen en `output/trabajo/datos-principales.csv`, se coteja el hallazgo contra los descriptivos sociodemográficos de `resultados.md` y se comenta si la asociación podría variar al controlar por ellos. La confusión residual (variables no medidas) se declara en las Limitaciones.
 
+Esto es razonamiento, no cálculo — ningún script puede hacerlo por la IA (el ejemplo clásico: el consumo de helados y las muertes por ahogo correlacionan porque ambos suben en verano; el confusor es la estación, no una relación directa entre ellos). Por eso, antes de redactar la interpretación de **cualquier** correlación/asociación reportada como relevante, se responde por escrito este checklist de 3 preguntas (las respuestas van en el propio texto de la Discusión, no se ocultan):
+
+1. **¿Hay una tercera variable plausible que explique ambas a la vez?** Nombrar 1-2 candidatas concretas para el diseño real del estudio (edad, carrera, ciclo, carga horaria, turno...) — no copiar una lista genérica sin pensarla para este caso.
+2. **¿Ambas variables se midieron con el mismo método (autoinforme) en la misma ocasión?** Si sí, nombrar explícitamente el riesgo de **varianza de método común** (*common method bias*: Podsakoff, MacKenzie, Lee y Podsakoff, 2003, *Journal of Applied Psychology*, 88(5), 879-903) en Limitaciones — no basta con la línea genérica ya prevista abajo, se explica cómo aplica a las variables concretas del estudio.
+3. **¿La muestra por conveniencia tiene una composición conocida distinta a la de la población?** Si el alumno conoce N y la composición real (ej. matrícula por carrera o sexo del padrón), se contrasta explícitamente contra la muestra obtenida (ver tabla sociodemográfica de `resultados.md`) y se discute la dirección probable del sesgo — no basta con decir "muestra por conveniencia, no representativa" sin más.
+
 ## Subsección obligatoria: Limitaciones del estudio
 
 La Discusión cierra siempre con la subsección **"Limitaciones del estudio"** (estándar STROBE, ítems 19-21: sesgo potencial con su dirección y magnitud, interpretación cautelosa, generalizabilidad). Para el diseño típico del arnés (transversal, autoinforme, conveniencia), toca como mínimo:

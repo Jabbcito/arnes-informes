@@ -22,6 +22,14 @@ Parafrasear un texto de IA cambiando pocas palabras sin cambiar la estructura de
 - **No pegar bloques de chat al documento**: el camino del arnés (fuente `VERIFICADA` leída completa → idea entendida → paráfrasis propia) es la defensa contra el plagio involuntario; copiar respuestas sueltas de un chat rompe ese camino.
 - **Nunca pegar prompts ni marcas del proceso**: lo que queda en el documento es contenido académico, no la conversación que lo produjo (ver "Restos de andamiaje" en la skill `verificar-formato`).
 
+## Exactitud del parafraseo (riesgo distinto del plagio)
+
+Todo lo anterior reduce el riesgo de **plagio** (que el texto se parezca demasiado al original). Hay un riesgo distinto, que no aparece en ningún detector de similitud: que la paráfrasis sea **100% original y aun así diga algo distinto a la fuente**. Esto pasa porque la IA reconstruye la oración a partir de patrones de lenguaje, no porque "entienda" el contenido con sentido común — puede cambiar sin darse cuenta una cifra, suavizar u omitir un calificador estadístico ("significativo" → "notable"), o convertir una correlación en una relación causal ("se asocia con" → "provoca"). Nada de esto lo detecta un revisor de similitud, porque el texto es nuevo.
+
+- **Regla dura**: toda oración parafraseada que incluya una cifra, un calificador estadístico o una relación causal/correlacional se coteja **oración por oración** contra el texto original de la fuente antes de aceptarse — no basta con que "suene bien" o con que ya haya pasado el punto anterior de originalidad.
+- Esto extiende el principio ya visto arriba ("una sección que el alumno no puede explicar no puede ir al documento") a: **una sección que el alumno no puede confirmar contra la fuente tampoco puede ir al documento**.
+- Es responsabilidad exclusiva del alumno al aprobar cada sección — el arnés no puede automatizar la comparación de significado (es juicio humano, no cálculo; mismo criterio que otras pruebas que se derivan a revisión manual en vez de forzarlas en código, ver "Límite honesto" de `../herramientas/README.md`).
+
 ## Qué hacer si ya existe un reporte de Turnitin con porcentaje alto
 
 Esto es trabajo del alumno, no algo que el arnés pueda hacer por él (nunca ve el reporte real hasta que el alumno lo pega o lo describe):
